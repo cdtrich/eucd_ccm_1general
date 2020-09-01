@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>eucd_ccm</title>
+		<meta charset="UTF-8" />
+
+		<!-- Styles -->
+		<link
+			href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap"
+			rel="stylesheet"
+		/>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap"
+			rel="stylesheet"
+		/>
+		<link href="src/styles.css" rel="stylesheet" />
+
+		<!-- JavaScript -->
+		<script type="module" src="https://d3js.org/d3.v5.min.js"></script>
+		<script type="module" src="https://d3js.org/d3-fetch.v1.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.20/lodash.min.js"></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/4.0.1/mustache.min.js"
+			integrity="sha512-6AXIWogbKpsHvoZJrJtHpIYES4wP8czSj0zk7ZfwOYS8GWYFNSykwdfapt7yQc4ikZytemBu+QyVObzBHJMwYg=="
+			crossorigin="anonymous"
+		></script>
+	</head>
+
+	<body>
+		<div id="story">
+			<!-- tooltip -->
+			<div class="tooltip hidden">
+				<h2></h2>
+				<p class="date"></p>
+				<p class="type"></p>
+				<p class="attacker"></p>
+				<p class="target"></p>
+			</div>
+			<h2></h2>
+
+			<div id="conflicts" class="app"></div>
+		</div>
+
+		<!-- <div id="conflicts" class="app"></div> -->
+	</body>
+	<!-- <script type="module" src="js/1_timeline_general.js"></script> -->
+	<!-- <script type="module" src="js/2_timeline_usme.js"></script> -->
+	<script type="module" src="js/4_conflicts.js"></script>
+</html>
