@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>eucd_ccm</title>
+		<meta charset="UTF-8" />
+		<!-- <script tttype="text/javascript" src="https://www.google.com/jsapi"></script> -->
+		<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/d3/4.3.0/d3.min.js"></script> -->
+		<!-- <links -->
+
+		<link
+			href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap"
+			rel="stylesheet"
+		/>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap"
+			rel="stylesheet"
+		/>
+
+		<link href="src/styles.css" rel="stylesheet" />
+
+		<!-- JavaScript -->
+		<script src="https://d3js.org/d3.v5.min.js"></script>
+		<script src="https://d3js.org/d3-fetch.v1.min.js"></script>
+		<script src="https://www.lodash.js"></script>
+		<!-- <script src="./lib/force-chart.js"></script> -->
+
+		<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script> -->
+		<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+		<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script> -->
+
+		<style></style>
+	</head>
+
+	<body>
+		<!-- <p id="output"></p> -->
+		<!-- tooltip -->
+		<div class="tooltip hidden">
+			<h2></h2>
+			<p class="date"></p>
+			<p class="type"></p>
+			<p class="attacker"></p>
+			<p class="target"></p>
+		</div>
+		<h2></h2>
+		<!-- <form>
+			<label for="circles">circles written</label>
+			<select id="circles">
+				<option>Russia</option>
+				<option>Iran</option>
+				<label for="labels">hide labels</label> -->
+		<!-- <input type="checkbox" id="labels" value="labels">hide labels</input>
+				<input type="submit" value="update"/>
+		</form> -->
+		<!-- <div class="dropdown"></div> -->
+
+		<p class="story">
+			A lively debate surrounds cyber conflict. Governments are actively
+			participating in global and regional dialogues to prevent and mitigate
+			conflict in cyberspace. However, several governments contributing to these
+			debates are interested in using their advanced ICT capabilities in pursuit
+			of their political, economic and military goals. Scholars disagree on
+			whether cyber conflict even exists. Agreeing that information and
+			communication technologies are widely used to pursue political goals, they
+			also find that such uses of ICTs do not generally meet the threshold of
+			use of force and that ICTs are primarily employed within the confines of
+			an already pre-existing conflictual situation. Therefore, cyber conflict,
+			while much discussed, remains an under-examined phenomenon.
+		</p>
+		<p class="story">
+			For the purposes of the Cyber Conflict Portal, we have identified six
+			strands of politico-military uses of ICTs that we consider incompatible
+			with international peace, security and stability. The first iteration of
+			the CCP examines individual effect-creating cyber operations. Our next
+			iterations will focus on cyber campaigns, cyber offenses targeted against
+			public trust and the international community, cyber espionage, domestic
+			cyber conflict and advanced persistent threat induced cybercrime. This
+			ontology of cyber conflict is intended to draw attention to trends and
+			patterns in the use of ICTs for malicious and hostile purposes and to
+			inform debates and discussions of how to best prevent and mitigate the
+			various threads of politico-military use of ICTs.
+		</p>
+		<p class="story">
+			Since 2007, in more than twenty occasions, states or state-sponsored
+			actors have inflicted damage on another state using ICTs.
+		</p>
+		<div id="timeline_general" class="app"></div>
+		<!-- tooltip -->
+
+		<p class="story">
+			While often such damages are relatively benign, such as downtime of public
+			services or inaccessible information on a website, several incidents have
+			resulted in significant economic damages or affected critical services.
+			Effects of cyber operations include manipulation, disruption and
+			destruction of data.
+		</p>
+		<div id="timeline_usme" class="app"></div>
+
+		<h1>Sectors</h1>
+
+		<p class="story">
+			Most affected by cyber operations is the financial sector. Cyber
+			operations also affect manufacturing processes, disrupt the supply of
+			electricity and public transportation. States have disrupted fuel supply
+			and targeted nuclear facilities. destruction of data.
+		</p>
+		<!-- <div id="sectors" class="app"></div> -->
+
+		<h1>Conflicts</h1>
+		<p class="story">
+			Unlike other military operations, hostile uses of ICTs mostly occur
+			outside acute military conflict. Cyberspace facilitates low-intensity
+			conflict between nuclear powers and allows operational presence away from
+			the operating state’s territory. Most states engaging in cyber operations
+			have established a cyber command.
+		</p>
+		<div id="conflicts" class="app"></div>
+
+		<h1>Dyads</h1>
+		<p class="story">
+			Scholars have noted the dyadic nature of cyber conflict – in most
+			instances, cyber operations are situated in pre-existing political
+			tensions. However, for some states, ICTs offer a new opportunity to engage
+			in operations against their rivals. have established a cyber command.
+		</p>
+		<!-- <div id="command" class="app"></div> -->
+		<div id="dyads" class="app"></div>
+
+		<h1>Proxies</h1>
+		<p class="story">
+			Even states with established cyber commands rely on proxy actors when
+			carrying out cyber operations. in operations against their rivals.
+		</p>
+		<div id="proxies" class="app"></div>
+
+		<h1>Processes</h1>
+		<p class="story">
+			Global and regional cybersecurity dialogues are dominated by states using
+			ICTs to achieve their domestic, regional and global ambitions. At the same
+			time, these dialogues do not include other countries frequently engaging
+			in cyber operations.
+		</p>
+		<div id="processes" class="app"></div>
+
+		<script type="text/javascript" src="js/data.js"></script>
+		<script type="text/javascript" src="js/1_timeline_general.js"></script>
+		<script type="text/javascript" src="js/2_timeline_usme.js"></script>
+		<script type="text/javascript" src="js/3_sectors.js"></script>
+		<script type="text/javascript" src="js/4_conflicts.js"></script>
+		<script type="text/javascript" src="js/5_command.js"></script>
+		<script type="text/javascript" src="js/6_dyads.js"></script>
+		<!-- <script src="./js/7_proxies.js"></script> -->
+		<!-- <script src="./js/8_processes.js"></script> -->
+	</body>
+</html>
