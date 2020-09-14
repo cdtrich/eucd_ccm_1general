@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>eucd_ccm</title>
+		<meta charset="UTF-8" />
+
+		<!-- Styles -->
+		<link
+			href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap"
+			rel="stylesheet"
+		/>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap"
+			rel="stylesheet"
+		/>
+
+		<link href="src/styles.css" rel="stylesheet" />
+
+		<!-- JavaScript -->
+		<script type="module" src="https://d3js.org/d3.v5.min.js"></script>
+		<script type="module" src="https://d3js.org/d3-fetch.v1.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.20/lodash.min.js"></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/4.0.1/mustache.min.js"
+			integrity="sha512-6AXIWogbKpsHvoZJrJtHpIYES4wP8czSj0zk7ZfwOYS8GWYFNSykwdfapt7yQc4ikZytemBu+QyVObzBHJMwYg=="
+			crossorigin="anonymous"
+		></script>
+	</head>
+
+	<body>
+		<div id="story">
+			<!-- tooltip -->
+			<div class="tooltip hidden">
+				<h2></h2>
+				<p class="date"></p>
+				<p class="type"></p>
+				<p class="attacker"></p>
+				<p class="target"></p>
+			</div>
+			<h2></h2>
+			<div id="timeline_general" class="app">
+				<div id="details" class="hidden row"><!-- Details container --></div>
+			</div>
+			<p class="definition" text-align="right">
+				[click dots for details, dblclick to close details]
+			</p>
+
+			<!-- Mustache template, rendered later to show the details of a feature -->
+			<script id="template" type="x-tmpl-mustache">
+				<!-- <h1 class="six columns">{{ name }}</h1> -->
+					<table class="five columns">
+						<tr>
+							<th>{{ name }}</th>
+						</tr>
+						<tr>
+							<td class="definition" colspan="2">We have used the most common/frequentky used name  and avoided entirely descriptive names. If the name derives from another name (Estonia, Georgia), we have added relevant year number.</td>
+						</tr>
+						<tr>
+							<th>{{ reportLabel }}</th>
+						</tr>
+						<tr>
+							<td class="definition" colspan="2">Report Date: Known first time of reporting of the operation.</td>
+						</tr>
+						<tr>
+							<th>{{ attacker_jurisdiction }}</th>
+						</tr>
+						<tr colspan="3">
+							<td class="definition" colspan="2">Attack jurisdiction: Jurisdiction primarily associated with the operation</td>
+						</tr>
+						<tr>
+							<th>{{ target_jurisdiction }}</th>
+						</tr>
+						<tr>
+							<td class="definition" colspan="2">Target jurisdiction: Jurisdiction primarily affected by the operation</td>
+						</tr>
+						<tr>
+							<th>{{ command }}</th>
+						</tr>
+						<tr>
+							<td class="definition" colspan="2">Attack cyber command: Existence of the cyber command or equivalent in the jurisdiction primariy associated with the operation  at the time of the operation.</td>
+						</tr>
+						<tr>
+							<th>{{ military }}</th>
+						</tr>
+						<tr>
+							<td class="definition" colspan="2">Ongoing military confrontation: Indicates the level and likelihood of use of destructive military power in the dyadic relationships. Military confrontation is active where frequent hostilities and destructive power are used between the rivals. Latent refers to where escalation and the use of destructive (military) power is likely. Frozen conflict means that the use of destructive power is settled by temporary, formal arrangement or de facto understanding.</td>
+						</tr>
+							<th>{{ us_me }}</th>
+						</tr>
+						<tr>
+							<td class="definition" colspan="2">US military effects: This classification comprises manipulation, denial (in form of disruption and degradation) and destruction.</td>
+						</tr>
+					</table>
+					<!-- <a href="#" id="close-details" class="one column" onclick="hideDetails(); return false;">&#x274c;</a> -->
+			</script>
+		</div>
+		<!-- <div id="timeline_usme" class="app"></div> -->
+
+		<!-- <div id="conflicts" class="app"></div> -->
+	</body>
+	<script type="module" src="js/1_timeline_general.js"></script>
+	<!-- <script type="module" src="js/2_timeline_usme.js"></script> -->
+	<!-- <script type="module" src="js/4_conflicts.js"></script> -->
+</html>

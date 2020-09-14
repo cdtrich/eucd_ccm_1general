@@ -2,17 +2,53 @@
 import { csv } from "d3-fetch";
 
 // import _ from "lodash";
-import { split, forEach } from "lodash";
+import _ from "lodash";
+
+import * as XLSX from "xlsx";
 
 const url =
 	// "https://docs.google.com/spreadsheets/d/e/2PACX-1vS_852u619EmtHZE3p4sq7ZXwfrtxhOc1IlldXIu7z43OFVTtVZ1A577RbfgZEnzVhM_X0rnkGzxytz/pub?gid=0&single=true&output=csv";
-	"data/EUISS Database.csv";
+	// "data/EUISS Database.csv";
+	"https://www.dropbox.com/s/47t2m2xidvum6hk/EUISS%20Database%20w%20notes%202020-08-18%20ET.xlsx?dl=0";
+
+// let response = await fetch(url);
+
+var sheet = XLSX.read();
+
+// var first_worksheet = workbook.Sheets[workbook.SheetNames[0]];
+// var data = XLSX.utils.sheet_to_json(first_worksheet, { header: 1 });
+
+/* convert from array of arrays to workbook */
+// var worksheet = XLSX.utils.aoa_to_sheet(data);
+// var new_workbook = XLSX.utils.book_new();
+// XLSX.utils.book_append_sheet(new_workbook, worksheet, "SheetJS");
+// console.log(worksheet);
+
+// json = [];
+
+// if (response.ok) {
+// 	// if HTTP-status is 200-299
+// 	// get the response body (the method explained below)
+// 	let json = await response.csv();
+// 	console.log(json);
+// } else {
+// 	alert("HTTP-Error: " + response.status);
+// }
+
+// if (typeof require !== "undefined") XLSX = require("xlsx");
+// var workbook = XLSX.readFile("test.xlsx");
+// console.log(workbook);
+/* DO SOMETHING WITH workbook HERE */
 
 ///////////////////////////////////////////////////////////////////////////
 //////////////////////////// to do ////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
 
 // use this file as data file
+// read in xlsx: https://github.com/SheetJS/sheetjs
+// and https://sheetjs.com/
+
+// take response from promisea
 
 ///////////////////////////////////////////////////////////////////////////
 //////////////////////////// colors ///////////////////////////////////////

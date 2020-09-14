@@ -17,9 +17,15 @@
 		<link href="src/styles.css" rel="stylesheet" />
 
 		<!-- JavaScript -->
+		<!-- d3 -->
 		<script type="module" src="https://d3js.org/d3.v5.min.js"></script>
 		<script type="module" src="https://d3js.org/d3-fetch.v1.min.js"></script>
+		<!-- lodash -->
 		<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.20/lodash.min.js"></script>
+		<!-- sheet -->
+		<!-- <script src="https://cdn.jsdelivr.net/npm/xlsx@0.16.7/dist/xlsx.min.js"></script> -->
+		<!-- <script lang="javascript" src="src/xlsx.full.min.js"></script> -->
+		<!-- mustache -->
 		<script
 			src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/4.0.1/mustache.min.js"
 			integrity="sha512-6AXIWogbKpsHvoZJrJtHpIYES4wP8czSj0zk7ZfwOYS8GWYFNSykwdfapt7yQc4ikZytemBu+QyVObzBHJMwYg=="
@@ -30,6 +36,37 @@
 	<body>
 		<div id="story">
 			<!-- tooltip -->
+			<div class="row">
+				<!-- <h3 class="nine columns">dashboard</h3> -->
+				<select id="dropdown_attacker" class="three columns">
+					<option value="" selected="selected"><sup>select color</sup></option>
+					<option value="Iran">Iran</option>
+					<option value="North Korea">North Korea</option>
+					<option value="Russia">Russia</option>
+					<option value="United Arab Emirates">United Arab Emirates</option>
+					<option value="United States">United States</option>
+				</select>
+				<select id="dropdown_target" class="three columns">
+					<option value="" selected="selected"><sup>select color</sup></option>
+					<option value="Estonia">Estonia</option>
+					<option value="Georgia">Georgia</option>
+					<option value="United States">United States</option>
+					<option value="Iran">Iran</option>
+					<option value="South Korea">South Korea</option>
+					<option value="France">France</option>
+					<option value="Ukraine">Ukraine</option>
+					<option value="Saudi Arabia">Saudi Arabia</option>
+					<option value="Qatar">Qatar</option>
+					<option value="Bahrain">Bahrain</option>
+					<option value="multiple">multiple</option>
+				</select>
+				<select id="dropdown_usme" class="three columns">
+					<option value="" selected="selected"><sup>select color</sup></option>
+					<option value="disruption">disruption</option>
+					<option value="destruction">destruction</option>
+					<option value="manipulation">manipulation</option>
+				</select>
+			</div>
 			<div class="tooltip hidden">
 				<h2></h2>
 				<p class="date"></p>
@@ -98,7 +135,8 @@
 
 		<!-- <div id="conflicts" class="app"></div> -->
 	</body>
-	<script type="module" src="js/1_timeline_general.js"></script>
+	<script type="module" src="js/data.js"></script>
+	<script type="module" src="js/1_timeline_general_dropdown.js"></script>
 	<!-- <script type="module" src="js/2_timeline_usme.js"></script> -->
 	<!-- <script type="module" src="js/4_conflicts.js"></script> -->
 </html>
