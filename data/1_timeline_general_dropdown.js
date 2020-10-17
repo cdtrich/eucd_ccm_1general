@@ -2,20 +2,30 @@
 //////////////////////////// to do ////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
 
-// opacity on hover
-// dynamic dropdown selection
-// load data at end as global var after plot function
-
 ///////////////////////////////////////////////////////////////////////////
 //////////////////////////// dependencies /////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
 
-console.clear();
-
 import * as d3 from "d3";
-// import { csv } from "d3-fetch";
+// import {
+// 	select,
+// 	extent,
+// 	scaleLinear,
+// 	// timeFormat,
+// 	axisBottom,
+// 	format,
+// 	forceSimulation,
+// 	forceX,
+// 	forceY,
+// 	forceCollide
+// } from "d3";
 
 import _ from "lodash";
+// Load the core build.
+// import { replace } from "lodash";
+
+// import fetch as d3-fetch from "d3-fetch";
+// import csv from "d3-fetch";
 
 // import mustache
 // https://github.com/janl/mustache.js
@@ -84,35 +94,12 @@ d3.csv(url, (d) => {
 		reportDay: d.Report_day,
 		reportMonth: d.Report_month,
 		reportYear: d.Report_year,
-		reportFix: new Date(
-			+d.Report_year,
-			+d.Report_month - 1,
-			_.replace(d.Report_day, "unknown", 1)
-		),
-		// labels
-		dyad: d.Dyad,
-		disputeType: d.Type_of_dispute,
-		geopoliticalSetting: d.Geopolitical_setting,
-		initialaccesEnterprise: d.Initial_access_MITRE_ATT_Enterprise,
-		initialaccesICS: d.Initial_access_MITRE_ATT_ICS,
-		impactEnterprise: d.Impact_MITRE_ATT_Enterprise,
-		addImpactEnterprise: d.Additional_Impact_MITRE_ATT_Enterprise,
-		impactICS: d.Impact_MITRE_ATT_ICS,
-		infosecEffect: d.Infosec_effect,
-		physicalEffect: d.Physical_effect,
-		corporateDowntime: d.Corporate_downtime,
-		estimatedLoss: d.Estimated_loss,
-		targetEntity: d.Target_entity,
-		attackNuclearCapability: d.Attack_nuclear_capability,
-		targetNuclearCapability: d.Target_nuclear_capability,
-		attackAccountabilityIndex: d.Attack_accountability_index,
-		targetAccountabilityIndex: d.Target_accountability_index,
-		attackfdi: d.Attack_Foreign_Direct_Investment_ranking,
-		targetfdi: d.Target_Foreign_Direct_Investment_ranking,
-		fdi: d.Foreign_Direct_Investment,
-		attack_gdpRank: d.Attack_GDP_rank,
-		target_gdpRank: d.Target_GDP_rank,
-		// reportLabel: d.Report_day + "-" + d.Report_month + "-" + d.Report_year,
+		// reportFix: new Date(
+		// 	+d.Report_year,
+		// 	+d.Report_month - 1,
+		// 	replace(d.Report_day, "unknown", 1)
+		// ),
+		reportLabel: d.Report_day + "-" + d.Report_month + "-" + d.Report_year,
 		attacker_jurisdiction: d.Attack_jurisdiction,
 		target_jurisdiction: d.Target_jurisdiction,
 		victim_jurisdiction: d.Victim_jurisdiction,
@@ -121,13 +108,11 @@ d3.csv(url, (d) => {
 		us_me: d.US_military_effects
 	};
 }).then(function (data) {
-	data[3].startYear = 2010;
+	// console.log(data);
+	// data = _.head(data);
 
-	// pretty dates
-	var formatTime = d3.timeFormat("%d %b %Y");
-	data.forEach((d) => {
-		d.reportLabel = formatTime(d.report);
-	});
+	// crappy stuxnet fix
+	data[3].startYear = 2010;
 
 	///////////////////////////////////////////////////////////////////////////
 	//////////////////////////// data table ///////////////////////////////////
@@ -140,9 +125,6 @@ d3.csv(url, (d) => {
 
 	// new time formats for tooltip
 	// var formatDate = timeFormat("%d %b %Y");
-
-	// data.reportLabel = formatTime(data.report)
-	// console.log(reportArray);
 
 	///////////////////////////////////////////////////////////////////////////
 	//////////////////////////// scales ///////////////////////////////////////
@@ -214,6 +196,7 @@ d3.csv(url, (d) => {
 	// };
 
 	// dots
+
 	const dots = svg
 		.selectAll(".dots")
 		.data(data)
@@ -243,17 +226,17 @@ d3.csv(url, (d) => {
 			// name
 			d3.select(".tooltip h2").text(d.name);
 			// date
-			// d3.select(".tooltip .date").text(
-			// 	"from " + d.startLabel + " to " + d.endLabel
-			// );
+			d3.select(".tooltip .date").text(
+				"from " + d.startLabel + " to " + d.endLabel
+			);
 			// name
-			// d3.select(".tooltip .type").text("type: " + d.us_me);
+			d3.select(".tooltip .type").text("type: " + d.us_me);
 			// attacker
-			// d3.select(".tooltip .attacker").text(
-			// 	"attacker: " + d.attacker_jurisdiction
-			// );
+			d3.select(".tooltip .attacker").text(
+				"attacker: " + d.attacker_jurisdiction
+			);
 			// victim
-			// d3.select(".tooltip .target").text("target: " + d.name);
+			d3.select(".tooltip .target").text("target: " + d.name);
 		})
 		.on("mousemove", (d, i) => {
 			const mouseX = event.pageX + 10;
