@@ -1,4 +1,13 @@
 ///////////////////////////////////////////////////////////////////////////
+//////////////////////////// libs /////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////
+
+import * as d3 from "d3";
+// import { csv } from "d3-fetch";
+
+import _ from "lodash";
+
+///////////////////////////////////////////////////////////////////////////
 //////////////////////////// to do ////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
 
@@ -12,115 +21,126 @@
 
 console.clear();
 
-import * as d3 from "d3";
-// import { csv } from "d3-fetch";
-
-import _ from "lodash";
-
 // import mustache
 // https://github.com/janl/mustache.js
 const Mustache = require("mustache");
 
 ///////////////////////////////////////////////////////////////////////////
-//////////////////////////// Set up svg ///////////////////////////////////
+//////////////////////////// drawing function /////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
 
-const width = 1200;
-const height = 300;
-const radius = 15;
-const margin = { top: 20, right: 20, bottom: 20, left: 120 };
-// const svg = d3.create("svg")
-// .attr("viewBox", [0, 0, width, height]);
-const svg = d3
-	.select("#timeline_general") // id app
-	.append("svg")
-	// .attr("width", width)
-	// .attr("height", height)
-	.attr("viewBox", [-margin.left, 0, width + width - 800, height])
-	// .attr("viewBox", [0, 0, width, height])
-	.style("overflow", "visible");
+const createChart = async () => {
+	///////////////////////////////////////////////////////////////////////////
+	//////////////////////////// data /////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
 
-// group for voronoi cells
-// var g = svg
-// 	.append("g")
-// 	.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+	const url = "./data/EUISS Database.csv";
 
-// const t = d3.transition().duration(1500);
+	let data = await d3.csv(url, (d) => {
+		// console.log(d);
+		return {
+			// order
+			id: d.CPI_CODE,
+			name: d.Name,
+			// plotting
+			start: new Date(+d.Start_year, +d.Start_month - 1, +d.Start_day),
+			startYear: +d.Start_year,
+			startFix: new Date(
+				+d.Start_year,
+				+d.Start_month - 1,
+				_.replace(d.Start_day, "unknown", 1)
+			),
+			startLabel: d.Start_day + "-" + d.Start_month + "-" + d.Start_year,
+			end: new Date(+d.End_year, +d.End_month, +d.end_day),
+			endYear: +d.End_year,
+			endFix: new Date(
+				+d.End_year,
+				+d.End_month - 1,
+				_.replace(d.End_day, "unknown", 1)
+			),
+			endLabel: d.End_day + "-" + d.End_month + "-" + d.End_year,
+			report: new Date(+d.Report_year, +d.Report_month, +d.Report_day),
+			reportDay: d.Report_day,
+			reportMonth: d.Report_month,
+			reportYear: d.Report_year,
+			reportFix: new Date(
+				+d.Report_year,
+				+d.Report_month - 1,
+				_.replace(d.Report_day, "unknown", 1)
+			),
+			// labels
+			dyad: d.Dyad,
+			disputeType: d.Type_of_dispute,
+			geopoliticalSetting: d.Geopolitical_setting,
+			initialaccesEnterprise: d.Initial_access_MITRE_ATT_Enterprise,
+			initialaccesICS: d.Initial_access_MITRE_ATT_ICS,
+			impactEnterprise: d.Impact_MITRE_ATT_Enterprise,
+			addImpactEnterprise: d.Additional_Impact_MITRE_ATT_Enterprise,
+			impactICS: d.Impact_MITRE_ATT_ICS,
+			infosecEffect: d.Infosec_effect,
+			physicalEffect: d.Physical_effect,
+			corporateDowntime: d.Corporate_downtime,
+			estimatedLoss: d.Estimated_loss,
+			targetEntity: d.Target_entity,
+			attackNuclearCapability: d.Attack_nuclear_capability,
+			targetNuclearCapability: d.Target_nuclear_capability,
+			attackAccountabilityIndex: d.Attack_accountability_index,
+			targetAccountabilityIndex: d.Target_accountability_index,
+			attackfdi: d.Attack_Foreign_Direct_Investment_ranking,
+			targetfdi: d.Target_Foreign_Direct_Investment_ranking,
+			fdi: d.Foreign_Direct_Investment,
+			attack_gdpRank: d.Attack_GDP_rank,
+			target_gdpRank: d.Target_GDP_rank,
+			// reportLabel: d.Report_day + "-" + d.Report_month + "-" + d.Report_year,
+			attacker_jurisdiction: d.Attack_jurisdiction,
+			target_jurisdiction: d.Target_jurisdiction,
+			victim_jurisdiction: d.Victim_jurisdiction,
+			military: d.Ongoing_military_confrontation,
+			command: d.Attack_cyber_command.trim(),
+			us_me: d.US_military_effects
+		};
+	});
 
-// template
-var template = d3.select("#template").html();
-Mustache.parse(template);
+	///////////////////////////////////////////////////////////////////////////
+	//////////////////////////// accessor functions ///////////////////////////
+	///////////////////////////////////////////////////////////////////////////
 
-const url =
-	// "https://docs.google.com/spreadsheets/d/e/2PACX-1vS_852u619EmtHZE3p4sq7ZXwfrtxhOc1IlldXIu7z43OFVTtVZ1A577RbfgZEnzVhM_X0rnkGzxytz/pub?gid=0&single=true&output=csv";
-	"data/EUISS Database.csv";
+	const xAcc = (d) => d.startYear;
 
-///////////////////////////////////////////////////////////////////////////
-//////////////////////////// data /////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
+	//////////////////////////// Set up svg ///////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
 
-d3.csv(url, (d) => {
-	// console.log(d);
-	return {
-		id: d.CPI_CODE,
-		name: d.Name,
-		start: new Date(+d.Start_year, +d.Start_month - 1, +d.Start_day),
-		startYear: +d.Start_year,
-		startFix: new Date(
-			+d.Start_year,
-			+d.Start_month - 1,
-			_.replace(d.Start_day, "unknown", 1)
-		),
-		startLabel: d.Start_day + "-" + d.Start_month + "-" + d.Start_year,
-		end: new Date(+d.End_year, +d.End_month, +d.end_day),
-		endYear: +d.End_year,
-		endFix: new Date(
-			+d.End_year,
-			+d.End_month - 1,
-			_.replace(d.End_day, "unknown", 1)
-		),
-		endLabel: d.End_day + "-" + d.End_month + "-" + d.End_year,
-		report: new Date(+d.Report_year, +d.Report_month, +d.Report_day),
-		reportDay: d.Report_day,
-		reportMonth: d.Report_month,
-		reportYear: d.Report_year,
-		reportFix: new Date(
-			+d.Report_year,
-			+d.Report_month - 1,
-			_.replace(d.Report_day, "unknown", 1)
-		),
-		// labels
-		dyad: d.Dyad,
-		disputeType: d.Type_of_dispute,
-		geopoliticalSetting: d.Geopolitical_setting,
-		initialaccesEnterprise: d.Initial_access_MITRE_ATT_Enterprise,
-		initialaccesICS: d.Initial_access_MITRE_ATT_ICS,
-		impactEnterprise: d.Impact_MITRE_ATT_Enterprise,
-		addImpactEnterprise: d.Additional_Impact_MITRE_ATT_Enterprise,
-		impactICS: d.Impact_MITRE_ATT_ICS,
-		infosecEffect: d.Infosec_effect,
-		physicalEffect: d.Physical_effect,
-		corporateDowntime: d.Corporate_downtime,
-		estimatedLoss: d.Estimated_loss,
-		targetEntity: d.Target_entity,
-		attackNuclearCapability: d.Attack_nuclear_capability,
-		targetNuclearCapability: d.Target_nuclear_capability,
-		attackAccountabilityIndex: d.Attack_accountability_index,
-		targetAccountabilityIndex: d.Target_accountability_index,
-		attackfdi: d.Attack_Foreign_Direct_Investment_ranking,
-		targetfdi: d.Target_Foreign_Direct_Investment_ranking,
-		fdi: d.Foreign_Direct_Investment,
-		attack_gdpRank: d.Attack_GDP_rank,
-		target_gdpRank: d.Target_GDP_rank,
-		// reportLabel: d.Report_day + "-" + d.Report_month + "-" + d.Report_year,
-		attacker_jurisdiction: d.Attack_jurisdiction,
-		target_jurisdiction: d.Target_jurisdiction,
-		victim_jurisdiction: d.Victim_jurisdiction,
-		military: d.Ongoing_military_confrontation,
-		command: d.Attack_cyber_command.trim(),
-		us_me: d.US_military_effects
-	};
-}).then(function (data) {
+	const width = 1200;
+	const height = 300;
+	const radius = 15;
+	const margin = { top: 20, right: 20, bottom: 20, left: 120 };
+	// const svg = d3.create("svg")
+	// .attr("viewBox", [0, 0, width, height]);
+	const svg = d3
+		.select("#timeline_general") // id app
+		.append("svg")
+		// .attr("width", width)
+		// .attr("height", height)
+		.attr("viewBox", [-margin.left, 0, width + width - 800, height])
+		// .attr("viewBox", [0, 0, width, height])
+		.style("overflow", "visible");
+
+	// group for voronoi cells
+	// var g = svg
+	// 	.append("g")
+	// 	.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+	// const t = d3.transition().duration(1500);
+
+	// template
+	var template = d3.select("#template").html();
+	Mustache.parse(template);
+
+	///////////////////////////////////////////////////////////////////////////
+	//////////////////////////// data /////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
+
 	data[3].startYear = 2010;
 
 	// pretty dates
@@ -281,29 +301,32 @@ d3.csv(url, (d) => {
 		.classed("x-axis", true)
 		.attr("transform", "translate(0," + height + ")")
 		.call(xAxis);
-});
+	// });
 
-///////////////////////////////////////////////////////////////////////////
-//////////////////////////// details //////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
+	//////////////////////////// details //////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
 
-function showDetails(f) {
-	var detailsHtml = Mustache.render(template, f);
-	// Hide the initial container.
-	d3.select("#initial").classed("hidden", true);
-	// Put the HTML output in the details container and show (unhide) it.
-	d3.select("#details").html(detailsHtml);
-	d3.select("#details").classed("hidden", false);
-	d3.select("#details").on("click", hideDetails);
-}
+	function showDetails(f) {
+		var detailsHtml = Mustache.render(template, f);
+		// Hide the initial container.
+		d3.select("#initial").classed("hidden", true);
+		// Put the HTML output in the details container and show (unhide) it.
+		d3.select("#details").html(detailsHtml);
+		d3.select("#details").classed("hidden", false);
+		d3.select("#details").on("click", hideDetails);
+	}
 
-function hideDetails() {
-	// Hide the details
-	// select("#details").attr("display", "none");
-	d3.select("#details").classed("hidden", true);
-	// Show the initial content
-	// select("#initial").attr("display", "none");
-	d3.select("#initial").classed("hidden", false);
-}
+	function hideDetails() {
+		// Hide the details
+		// select("#details").attr("display", "none");
+		d3.select("#details").classed("hidden", true);
+		// Show the initial content
+		// select("#initial").attr("display", "none");
+		d3.select("#initial").classed("hidden", false);
+	}
 
-// select(HTMLAnchorElement).on("click", hideDetails);
+	// select(HTMLAnchorElement).on("click", hideDetails);
+};
+
+createChart();
