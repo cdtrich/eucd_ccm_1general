@@ -112,17 +112,17 @@ const createChart = async () => {
 	///////////////////////////////////////////////////////////////////////////
 
 	const width = d3.min([window.innerWidth * 0.9, window.innerHeight * 0.9]);
-	const height = d3.min([window.innerWidth * 0.9, window.innerHeight * 0.33]);
+	const height = d3.min([window.innerWidth * 0.33, window.innerHeight * 0.33]);
 	const radius = 15;
-	const margin = { top: 20, right: 20, bottom: 20, left: 120 };
+	const margin = { top: 20, right: 20, bottom: 20, left: 20 };
 	// const svg = d3.create("svg")
 	// .attr("viewBox", [0, 0, width, height]);
 	const svg = d3
 		.select("#timeline_general") // id app
 		.append("svg")
-		// .attr("width", width)
-		// .attr("height", height)
-		.attr("viewBox", [-margin.left, 0, width + width - 800, height])
+		.attr("width", width)
+		.attr("height", height)
+		// .attr("viewBox", [-margin.left, 0, width , height])
 		// .attr("viewBox", [0, 0, width, height])
 		.style("overflow", "visible");
 
@@ -250,30 +250,11 @@ const createChart = async () => {
 			var mouseX = event.pageX + 10;
 			var mouseY = event.pageY + 10;
 			d3.select(".tooltip")
-				// .style("left", mouseX + "px")
-				// .style("top", mouseY  + "px")
-				// .style("opacity", 0)
-				// .transition()
-				// .duration(100)
 				.style("visibility", "visible")
 				.style("opacity", 1)
 				.style("left", mouseX + "px")
 				.style("top", mouseY + "px");
-			// console.log(d);
-			// name
 			d3.select(".tooltip h2").text(d.name);
-			// date
-			// d3.select(".tooltip .date").text(
-			// 	"from " + d.startLabel + " to " + d.endLabel
-			// );
-			// name
-			// d3.select(".tooltip .type").text("type: " + d.us_me);
-			// attacker
-			// d3.select(".tooltip .attacker").text(
-			// 	"attacker: " + d.attacker_jurisdiction
-			// );
-			// victim
-			// d3.select(".tooltip .target").text("target: " + d.name);
 		})
 		.on("mousemove", (d, i) => {
 			const mouseX = event.pageX + 10;
@@ -285,7 +266,7 @@ const createChart = async () => {
 		.on("mouseout", function (d) {
 			d3.select(".tooltip").style("visibility", "hidden");
 		})
-		.on("click", showDetails);
+		.on("click", on);
 
 	///////////////////////////////////////////////////////////////////////////
 	//////////////////////////// axes /////////////////////////////////////////
@@ -312,21 +293,31 @@ const createChart = async () => {
 		// Hide the initial container.
 		d3.select("#initial").classed("hidden", true);
 		// Put the HTML output in the details container and show (unhide) it.
-		d3.select("#details").html(detailsHtml);
-		d3.select("#details").classed("hidden", false);
-		d3.select("#details").on("click", hideDetails);
+		d3.select("#overlay").html(detailsHtml);
+		d3.select("#overlay").classed("hidden", false);
+		d3.select("#overlay").on("click", hideDetails);
 	}
 
 	function hideDetails() {
 		// Hide the details
 		// select("#details").attr("display", "none");
-		d3.select("#details").classed("hidden", true);
+		d3.select("#overlay").classed("hidden", true);
 		// Show the initial content
 		// select("#initial").attr("display", "none");
 		d3.select("#initial").classed("hidden", false);
 	}
 
 	// select(HTMLAnchorElement).on("click", hideDetails);
+
+	function on(f) {
+		document.getElementById("overlay").style.display = "block";
+		var detailsHtml = Mustache.render(template, f);
+		d3.select("#overlay").html(detailsHtml);
+	}
+
+	function off() {
+		document.getElementById("overlay").style.display = "none";
+	}
 };
 
 createChart();
