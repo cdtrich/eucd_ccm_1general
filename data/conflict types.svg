@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 24.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 1366 810" style="enable-background:new 0 0 1366 810;" xml:space="preserve">
+<style type="text/css">
+* {font-family: "Roboto Condensed", sans-serif;
+	font-size: 1em;}
+	.st0{display:none;}
+	.st1{display:inline;fill:none;}
+	.st2{fill:#113655;}
+	.st3{fill:#99D4E3;}
+	.st4{fill:#245B78;}
+	.st5{fill:#68C4D8;}
+	.st6{fill:#3F8CA5;}
+	.st7{fill:none;stroke:#99D4E3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st8{fill:none;stroke:#68C4D8;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st9{fill:#FFFFFF;font-family: "Roboto Condensed", sans-serif;
+	font-size: 1em;}
+	.st10{font-family: "Roboto Condensed", sans-serif;
+	font-size: 1em;}
+	.st11{font-family: "Roboto Condensed", sans-serif;
+	font-size: 1em;}
+	.st12{enable-background:new;}
+	.st13{font-family: "Roboto Condensed", sans-serif;
+	font-size: 1em;}
+	text{font-family: "Roboto Condensed", sans-serif;
+	font-size: 1em;}
+</style>
+<g id="bg" class="st0">
+	<circle class="st1" cx="682.5" cy="417.78" r="450.78"/>
+</g>
+<g id="Layer_1">
+	<g transform="translate(10,10)">
+		<g>
+			<circle class="st2" cx="573.53" cy="282.88" r="286.07"/>
+			<circle class="st3" cx="874.9" cy="195.61" r="20.23"/>
+			<circle class="st4" cx="851.82" cy="634.09" r="156.68"/>
+			<circle class="st5" cx="909.13" cy="258.35" r="43.38"/>
+			<circle class="st6" cx="942.4" cy="394.2" r="90.46"/>
+		</g>
+	</g>
+</g>
+<g id="lines">
+	<line class="st7" x1="885" y1="96" x2="885" y2="205"/>
+	<line class="st8" x1="982.5" y1="228.5" x2="919.5" y2="228.5"/>
+</g>
+<g id="copy">
+	<g>
+		<text transform="matrix(1 0 0 1 502.5782 293.3911)" class="st9 st10 st11">Cyber espionage</text>
+		<text transform="matrix(1 0 0 1 895.3904 95.9)" class="st12"><tspan x="0" y="0" class="st3 st10 st11">Cyber operations  </tspan><tspan x="0" y="20" class="st3 st10 st11">against public trust</tspan></text>
+		<text transform="matrix(1 0 0 1 895.3904 145.9)" class="st12"><tspan x="0" y="0" class="st3 st13 st11">targeting of international organizations,  </tspan><tspan x="0" y="20" class="st3 st13 st11">Internet infrasructure and trus(ed) services</tspan></text>
+		<text transform="matrix(1 0 0 1 815.8942 644.4921)" class="st12"><tspan x="0" y="0" class="st9 st10 st11">Domestic </tspan><tspan x="-20.93" y="20" class="st9 st10 st11">cyber confict</tspan></text>
+		<g>
+			<text transform="matrix(1 0 0 1 1028.9537 644.4921)"><tspan x="0" y="0" class="st4 st13 st11">internet shutdowns, opposition  </tspan><tspan x="0" y="20" class="st4 st13 st11">targeting, sysemic violations  </tspan><tspan x="0" y="40" class="st4 st13 st11">of human rights</tspan></text>
+		</g>
+		<g>
+			<text transform="matrix(1 0 0 1 992.3295 228.8562)"><tspan x="0" y="0" class="st5 st10 st11">Effect-creating </tspan><tspan x="0" y="20" class="st5 st10 st11">cyber operations</tspan></text>
+		</g>
+		<g>
+			<text transform="matrix(1 0 0 1 992.3295 278.8562)"><tspan x="0" y="0" class="st5 st13 st11">State-authorized defacements,  </tspan><tspan x="0" y="20" class="st5 st13 st11">DDoS, doxing, data desruction  </tspan><tspan x="0" y="40" class="st5 st13 st11">and sabotage</tspan></text>
+		</g>
+		<text transform="matrix(1 0 0 1 913.1722 380.7113)" class="st12"><tspan x="0" y="0" class="st9 st10 st11">Military </tspan><tspan x="11.92" y="20" class="st9 st10 st11">cyber </tspan><tspan x="-14.01" y="40" class="st9 st10 st11">operations</tspan></text>
+	</g>
+	<g>
+		<text transform="matrix(1 0 0 1 553.3692 569.3911)" class="st9 st13 st11">&gt;1,000</text>
+		<text transform="matrix(1 0 0 1 879.9998 214.9)" class="st9 st13 st11">5</text>
+		<text transform="matrix(1 0 0 1 927.941 484.492)" class="st9 st13 st11">&lt;100</text>
+		<g>
+			<text transform="matrix(1 0 0 1 908.5482 301.8562)" class="st9 st13 st11">23</text>
+		</g>
+		<text transform="matrix(1 0 0 1 839.1536 790.7113)" class="st9 st13 st11">&gt;300</text>
+	</g>
+</g>
+</svg>
