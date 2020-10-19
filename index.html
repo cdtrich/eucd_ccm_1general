@@ -34,11 +34,11 @@
 	</head>
 
 	<body>
-		<!-- <img
+		<img
 			class="alignnone size-full wp-image-3294"
 			src="./data/conflict types.svg"
 			alt=""
-		/> -->
+		/>
 
 		<div id="story">
 			<div id="types" class="app">
@@ -106,10 +106,10 @@
 						<tr><td><b>Attacker jurisdiction </b>{{ attacker_jurisdiction }}</td></tr>
 						<tr><td><b>Target jurisdiction </b>{{ target_jurisdiction }}</td></tr>
 						<tr><td><b>Target entity	</b>{{ targetEntity }}</td></tr>
-						<tr><td><b>Nuclear capability	</b>{{ attackNuclearCapability  }} (attack) {{ targetNuclearCapability }} (target)</td></tr>
-						<tr><td><b>Accountability index	</b>{{ attackAccountabilityIndex  }} (attack) {{ targetAccountabilityIndex }} (target)</td></tr>
-						<tr><td><b>Foreign Direct Investment	</b>{{ attackfdi  }} (attack) {{ targetfdi }} (target)</td></tr>
-						<tr><td><b>GDP rank	</b>{{ attack_gdpRank  }} (attack) {{ target_gdpRank }} (target)</td></tr>
+						<tr><td><b>Nuclear capability	</b>{{ attackNuclearCapability  }} ({{ attacker_jurisdiction }}) {{ targetNuclearCapability }} ({{ target_jurisdiction }})</td></tr>
+						<tr><td><b>Accountability index	</b>{{ attackAccountabilityIndex  }} ({{ attacker_jurisdiction }}) {{ targetAccountabilityIndex }} ({{ target_jurisdiction }})</td></tr>
+						<tr><td><b>Foreign Direct Investment	</b>{{ attackfdi  }} ({{ attacker_jurisdiction }}) {{ targetfdi }} ({{ target_jurisdiction }})</td></tr>
+						<tr><td><b>GDP rank	</b>{{ attack_gdpRank  }} ({{ attacker_jurisdiction }}) {{ target_gdpRank }} ({{ target_jurisdiction }})</td></tr>
 						<tr><td class="definition">Activity</td></tr>
 						<tr><td><b>Initial access (MITRE ATT&CK	for Enterprise) </b>{{ initialaccesEnterprise }}</td></tr>
 						<tr><td><b>Initial access (MITRE ATT&CK	for ICS) </b>{{ initialaccesICS }}</td></tr>
