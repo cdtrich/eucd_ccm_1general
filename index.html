@@ -88,23 +88,29 @@
 					<table class="five columns">
 						<tr><th><b>{{ name }}</b><br></th></tr>
 						<tr><td><b>Report date </b>{{ reportLabel }}</td></tr>
+						<tr><td class="definition">Pretext</td></tr>
 						<tr><td><b>Dyad </b>{{ dyad }}</td></tr>
 						<tr><td><b>Dispute type </b>{{ disputeType }}</td></tr>
 						<tr><td><b>Geopolitical setting </b>{{ geopoliticalSetting }}</td></tr>
-						<tr><td><b>Initial access (MITRE ATT&CK	for Enterprise) </b>{{ initialaccesEnterprise }}</td></tr>
-						<tr><td><b>Initial access (MITRE ATT&CK	for ICS) </b>{{ initialaccesICS }}</td></tr>
-						<tr><td><b>Impact (MITRE ATT&CK for Enterprise) </b>{{ impactEnterprise }}</td></tr>
-						<tr><td><b>Additional Impact (MITRE ATT&CK for Enterprise) </b>{{ addImpactEnterprise }}</td></tr>
-						<tr><td><b>Impact (MITRE ATT&CK for ICS)	</b>{{ impactICS }}</td></tr>
-						<tr><td><b>Infosec effect	</b>{{ infosecEffect }}</td></tr>
-						<tr><td><b>Physical effect	</b>{{ physicalEffect }}</td></tr>
-						<tr><td><b>Corporate downtime	</b>{{ corporateDowntime }}</td></tr>
-						<tr><td><b>Estimated loss (USD million)	</b>{{ estimatedLoss }}</td></tr>
+						<tr><td class="definition">Parties</td></tr>
+						<tr><td><b>Attacker jurisdiction </b>{{ attacker_jurisdiction }}</td></tr>
+						<tr><td><b>Target jurisdiction </b>{{ target_jurisdiction }}</td></tr>
 						<tr><td><b>Target entity	</b>{{ targetEntity }}</td></tr>
 						<tr><td><b>Nuclear capability	</b>{{ attackNuclearCapability  }} (attack) {{ targetNuclearCapability }} (target)</td></tr>
 						<tr><td><b>Accountability index	</b>{{ attackAccountabilityIndex  }} (attack) {{ targetAccountabilityIndex }} (target)</td></tr>
 						<tr><td><b>Foreign Direct Investment	</b>{{ attackfdi  }} (attack) {{ targetfdi }} (target)</td></tr>
 						<tr><td><b>GDP rank	</b>{{ attack_gdpRank  }} (attack) {{ target_gdpRank }} (target)</td></tr>
+						<tr><td class="definition">Activity</td></tr>
+						<tr><td><b>Initial access (MITRE ATT&CK	for Enterprise) </b>{{ initialaccesEnterprise }}</td></tr>
+						<tr><td><b>Initial access (MITRE ATT&CK	for ICS) </b>{{ initialaccesICS }}</td></tr>
+						<tr><td><b>Impact (MITRE ATT&CK for Enterprise) </b>{{ impactEnterprise }}</td></tr>
+						<tr><td><b>Additional Impact (MITRE ATT&CK for Enterprise) </b>{{ addImpactEnterprise }}</td></tr>
+						<tr><td><b>Impact (MITRE ATT&CK for ICS)	</b>{{ impactICS }}</td></tr>
+						<tr><td class="definition">Effect</td></tr>
+						<tr><td><b>Infosec effect	</b>{{ infosecEffect }}</td></tr>
+						<tr><td><b>Physical effect	</b>{{ physicalEffect }}</td></tr>
+						<tr><td><b>Corporate downtime	</b>{{ corporateDowntime }}</td></tr>
+						<tr><td><b>Estimated loss (USD million)	</b>{{ estimatedLoss }}</td></tr>
 						<tr>
 					</table>
 					<!-- <a href="#" id="close-details" class="one column" onclick="hideDetails(); return false;">&#x274c;</a> -->
