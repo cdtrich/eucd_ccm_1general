@@ -112,7 +112,7 @@ const createChart = async () => {
 	///////////////////////////////////////////////////////////////////////////
 
 	const width = d3.min([window.innerWidth * 0.9, window.innerHeight * 0.9]);
-	const height = d3.min([window.innerWidth * 0.33, window.innerHeight * 0.33]);
+	const height = d3.min([window.innerWidth * 0.9, window.innerHeight * 0.33]);
 	const radius = 15;
 	const margin = { top: 20, right: 20, bottom: 20, left: 120 };
 	// const svg = d3.create("svg")

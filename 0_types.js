@@ -30,28 +30,44 @@ const createChart = async () => {
 	//////////////////////////// data /////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////
 
-	let data = [
-		{ title: "Cyber espionage", val: 1000, desc: "" },
-		{ title: "Military cyber operations", val: 100, desc: "" },
-		{
-			title: "Cyber operations against public trust",
-			val: 5,
-			desc:
-				"targeting of international organizations, Internet infrastructure and trust(ed) services"
-		},
-		{
-			title: "Effect-creating cyber operations",
-			val: 23,
-			desc:
-				"State-authorized defacements, DDoS, doxing, data destruction and sabotage"
-		},
-		{
-			title: "Domestic cyber conflict",
-			val: 300,
-			desc:
-				"internet shutdowns, opposition targeting, systemic violations of human rights"
-		}
-	];
+	let data = {
+		children: [
+			{ children: [{ title: "Cyber espionage", val: 1000, desc: "" }] },
+			{
+				children: [{ title: "Military cyber operations", val: 100, desc: "" }]
+			},
+			{
+				children: [
+					{
+						title: "Cyber operations against public trust",
+						val: 5,
+						desc:
+							"targeting of international organizations, Internet infrastructure and trust(ed) services"
+					}
+				]
+			},
+			{
+				children: [
+					{
+						title: "Effect-creating cyber operations",
+						val: 23,
+						desc:
+							"State-authorized defacements, DDoS, doxing, data destruction and sabotage"
+					}
+				]
+			},
+			{
+				children: [
+					{
+						title: "Domestic cyber conflict",
+						val: 300,
+						desc:
+							"internet shutdowns, opposition targeting, systemic violations of human rights"
+					}
+				]
+			}
+		]
+	};
 
 	///////////////////////////////////////////////////////////////////////////
 	//////////////////////////// accessor functions ///////////////////////////
@@ -98,6 +114,16 @@ const createChart = async () => {
 
 	// console.log(xScale.domain(), xScale.range());
 
+	var root = d3.hierarchy(data)
+	.sum((d) => (d.hasOwnProperty("val") ? d.val : 0))
+	.sort((a, b) => b.value - a.value);
+
+	var partition = d3.pack().size([500, 500]);
+
+	partition(root);
+
+	console.log(root);
+
 	var simulation = d3
 		.forceSimulation(data)
 		.force("x", d3.forceX((d) => xScale(d.val)).strength(0.99))
@@ -116,38 +142,48 @@ const createChart = async () => {
 		.style("visibility", "visible")
 		.style("opacity", 1);
 
-	// dots
 	const dots = svg
-		.selectAll(".dots")
-		.data(data)
+		.selectAll("circle.node")
+		.data(root.descendants())
 		.enter()
-		// cell
 		.append("circle")
-		.attr("class", "dots")
-		.attr("r", (d) => rScale(d.val))
+		.classed("node", true)
 		.attr("cx", (d) => d.x)
 		.attr("cy", (d) => d.y)
-		.attr("fill", "#3f8ca5")
-		// tooltip
-		.on("mouseenter", (event, d) => {
-			const mouseX = xScale((d) => d.val);
-			const mouseY = yScale((d) => d.val);
-			// var mouseX = event.pageX + 10;
-			// var mouseY = event.pageY + 10;
-			tooltip
-				.style(
-					"transform",
-					`translate(
-            calc(${mouseX + margin.left}px - 50%), 
-            calc(${mouseY + margin.top}px - 5%))`
-				)
-				.text(d.name);
-			// name
-			// d3.select(".tooltip h2").text(d.name);
-		})
-		.on("mouseleave", function (d) {
-			d3.select(".tooltip").style("visibility", "hidden");
-		});
+		.attr("r", (d) => d.r);
+
+	// dots
+	// const dots = svg
+	// 	.selectAll(".dots")
+	// 	.data(data)
+	// 	.enter()
+	// 	// cell
+	// 	.append("circle")
+	// 	.attr("class", "dots")
+	// 	.attr("r", (d) => rScale(d.val))
+	// 	.attr("cx", (d) => d.x)
+	// 	.attr("cy", (d) => d.y)
+	// 	.attr("fill", "#3f8ca5")
+	// 	// tooltip
+	// 	.on("mouseenter", (event, d) => {
+	// 		const mouseX = xScale((d) => d.val);
+	// 		const mouseY = yScale((d) => d.val);
+	// 		// var mouseX = event.pageX + 10;
+	// 		// var mouseY = event.pageY + 10;
+	// 		tooltip
+	// 			.style(
+	// 				"transform",
+	// 				`translate(
+	//           calc(${mouseX + margin.left}px - 50%),
+	//           calc(${mouseY + margin.top}px - 5%))`
+	// 			)
+	// 			.text(d.name);
+	// 		// name
+	// 		// d3.select(".tooltip h2").text(d.name);
+	// 	})
+	// 	.on("mouseleave", function (d) {
+	// 		d3.select(".tooltip").style("visibility", "hidden");
+	// 	});
 };
 
 createChart();
