@@ -97,9 +97,11 @@ const createChart = async () => {
 			victim_jurisdiction: d.Victim_jurisdiction,
 			military: d.Ongoing_military_confrontation,
 			command: d.Attack_cyber_command.trim(),
-			us_me: d.US_military_effects
+			us_me: d.US_military_effects,
+			url: d.url
 		};
 	});
+	// console.log(data);
 
 	///////////////////////////////////////////////////////////////////////////
 	//////////////////////////// accessor functions ///////////////////////////
@@ -288,27 +290,6 @@ const createChart = async () => {
 	//////////////////////////// details //////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////
 
-	function showDetails(f) {
-		var detailsHtml = Mustache.render(template, f);
-		// Hide the initial container.
-		d3.select("#initial").classed("hidden", true);
-		// Put the HTML output in the details container and show (unhide) it.
-		d3.select("#overlay").html(detailsHtml);
-		d3.select("#overlay").classed("hidden", false);
-		d3.select("#overlay").on("click", hideDetails);
-	}
-
-	function hideDetails() {
-		// Hide the details
-		// select("#details").attr("display", "none");
-		d3.select("#overlay").classed("hidden", true);
-		// Show the initial content
-		// select("#initial").attr("display", "none");
-		d3.select("#initial").classed("hidden", false);
-	}
-
-	// select(HTMLAnchorElement).on("click", hideDetails);
-
 	function on(f) {
 		document.getElementById("overlay").style.display = "block";
 		var detailsHtml = Mustache.render(template, f);
@@ -318,6 +299,28 @@ const createChart = async () => {
 	function off() {
 		document.getElementById("overlay").style.display = "none";
 	}
+
+	function showDetails(f) {
+		var detailsHtml = Mustache.render(template, f);
+		// Hide the initial container.
+		// d3.select("#initial").classed("hidden", true);
+		// Put the HTML output in the details container and show (unhide) it.
+		d3.select("#details").html(detailsHtml);
+		// d3.select("#overlay").html(detailsHtml);
+		d3.select("#details").classed("hidden", false);
+		d3.select("#details").on("click", off);
+	}
+
+	function hideDetails() {
+		// Hide the details
+		// select("#details").attr("display", "none");
+		d3.select("#details").classed("hidden", true);
+		// Show the initial content
+		// select("#initial").attr("display", "none");
+		// d3.select("#initial").classed("hidden", false);
+	}
+
+	// select(HTMLAnchorElement).on("click", hideDetails);
 };
 
 createChart();

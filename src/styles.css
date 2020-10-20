@@ -37,11 +37,8 @@ h1 {
 }
 
 .app {
-	/* margin: auto; */
 	margin-top: 3em;
 	margin-bottom: 5em;
-	/* margin-top: 2em; */
-	/* padding: 1em; */
 }
 
 .app text {
@@ -108,38 +105,19 @@ h1 {
 /* details ///////////////////////////////////////// */
 /* ///////////////////////////////////////////////// */
 
-/* #details row {
-	background: red;
-} */
-
-/* #details,
-#initial {
-	float: fixed;
-	width: 100%;
-	height: 100%;
-	position: fixed; */
-/* display: none; */
-/* vertical-align: center; */
-/* bottom: 0;
-	left: 0;
-	background: white;
-	margin-top: 2rem;
-	box-shadow: 0.5rem 0rem 2rem #eee;
-	z-index: 0;
-} */
-
 table {
-	margin-bottom: 0;
-	/* overflow-x: auto; */
-	table-layout: 1 2;
-	/* table-layout: fixed; */
-	vertical-align: top;
+	float: center;
+	text-align: left;
+	width: 100%;
+	padding: 5% 20%;
+	/* background-color: white; */
 }
 
 td,
 th {
 	padding: 6px 9px;
 	font-weight: normal;
+	text-align: left;
 }
 
 th {
@@ -147,7 +125,6 @@ th {
 }
 
 td {
-	text-align: left;
 	font-size: 0.8em;
 	color: #000;
 	padding-top: 0em;
@@ -158,14 +135,10 @@ tr:hover {
 	background-color: rgb(230, 230, 230);
 }
 
-table {
-	text-align: left;
-}
-
 .definition {
 	font-size: 0.75em;
 	color: #aaa;
-	text-align: left;
+	text-align: center;
 	border-bottom: 1px solid #eee;
 	padding-top: 1em;
 	padding-bottom: 0.1em;
@@ -174,10 +147,8 @@ table {
 #close-details {
 	color: black;
 	text-decoration: none;
-	/* font-size: 4rem; */
-	/* text-align: right; */
-	/* line-height: 4.5rem; */
 }
+
 #close-details:hover {
 	color: 000;
 }
@@ -196,8 +167,7 @@ label {
 /* overlay ///////////////////////////////////////// */
 /* ///////////////////////////////////////////////// */
 
-#overlay,
-#details {
+#overlay {
 	position: fixed; /* Sit on top of the page content */
 	display: none; /* Hidden by default */
 	width: 100%; /* Full width (cover the whole page) */
@@ -210,19 +180,24 @@ label {
 		255,
 		255,
 		255,
-		0.8
+		0.9
 	); /* Black background with opacity */
 	z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
 	cursor: pointer; /* Add a pointer on hover */
 }
 
 #details {
-	background-color: white;
+	/* background-color: white; */
+	/* float: center; */
 	position: absolute;
+	text-align: center;
+	width: 50%;
 	top: 50%;
 	left: 50%;
 	font-size: 50px;
+	padding: 20%;
+	background-color: red;
 	/* color: white; */
-	transform: translate(-50%, -50%);
-	-ms-transform: translate(-50%, -50%);
+	/* transform: translate(-50%, -50%); */
+	/* -ms-transform: translate(-50%, -50%); */
 }

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html onclick="off()">
+<html>
 	<head>
-		<title>eucd_ccm</title>
+		<title>EUCD Cyber Conflict Portal</title>
 		<meta charset="UTF-8" />
 
 		<!-- Styles -->
@@ -42,12 +42,12 @@
 			alt=""
 		/> -->
 
-		<div id="story">
+		<!-- <div id="story"> -->
 			<div id="types" class="app">
-				<div id="details" class="hidden row"><!-- Details container --></div>
+				<!-- <div id="details" class="hidden row">Details container</div> -->
 			</div>
 
-			<!-- tooltip -->
+			<!-- dropdown -->
 			<div class="row">
 				<!-- <h3 class="nine columns">dashboard</h3> -->
 				<select id="dropdown_attacker" class="three columns">
@@ -79,6 +79,7 @@
 					<option value="manipulation">manipulation</option>
 				</select>
 			</div>
+			<!-- tooltip -->
 			<div class="tooltip hidden">
 				<h2></h2>
 				<p class="date"></p>
@@ -88,14 +89,17 @@
 			</div>
 			<h2></h2>
 			<div id="timeline_general" class="app">
-				<div id="details" class="hidden row"><!-- Details container --></div>
+				<!-- <div id="details" class="hidden row">Details container</div> -->
 			</div>
 			<p class="definition" text-align="right">
 				[click dots for details, click again to close]
 			</p>
 
-			<div id="overlay">
-				<div id="details">
+			<div id="overlay" onclick="off()">
+				<div id="details"></div>
+				<!-- <div id="details" class="hidden row">Details container</div> -->
+			</div>
+
 					<!-- Mustache template, rendered later to show the details of a feature -->
 					<script id="template" type="x-tmpl-mustache">
 						<table class="five columns">
@@ -128,11 +132,11 @@
 						</table>
 						<!-- <a href="#" id="close-details" class="one column" onclick="hideDetails(); return false;">&#x274c;</a> -->
 					</script>
-				</div>
+				<!-- </div> -->
 			</div>
-		</div>
+		<!-- </div> -->
 	</body>
 	<!-- <script type="module" src="./js/data.js"></script> -->
 	<!-- <script type="module" src="./1_timeline_general_dropdown.js"></script> -->
-	<!-- <script type="module" src="./0_types.js"></script> -->
+	<!-- <script type="module" src="./0_types.js"></script> --> 
 </html>
