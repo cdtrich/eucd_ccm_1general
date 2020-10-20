@@ -101,7 +101,7 @@ const createChart = async () => {
 			url: d.url
 		};
 	});
-	// console.log(data);
+	console.log(data);
 
 	///////////////////////////////////////////////////////////////////////////
 	//////////////////////////// accessor functions ///////////////////////////
@@ -152,21 +152,6 @@ const createChart = async () => {
 	});
 
 	///////////////////////////////////////////////////////////////////////////
-	//////////////////////////// data table ///////////////////////////////////
-	///////////////////////////////////////////////////////////////////////////
-
-	// dropping missing dates (defaults to 1899 otherwise)
-	// data = filter(data, (d) => {
-	// 	return d.end_year > 2000;
-	// });
-
-	// new time formats for tooltip
-	// var formatDate = timeFormat("%d %b %Y");
-
-	// data.reportLabel = formatTime(data.report)
-	// console.log(reportArray);
-
-	///////////////////////////////////////////////////////////////////////////
 	//////////////////////////// scales ///////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////
 
@@ -194,46 +179,12 @@ const createChart = async () => {
 		.force("y", d3.forceY(height).strength(0.05))
 		.force("collide", d3.forceCollide(radius))
 		.stop();
-	// this crashes
-	// .alphaDecay(0)
-	// .alpha(0.12)
-	// .on('tick', tick);
 
 	for (var i = 0; i < 10; ++i) simulation.tick();
 
 	///////////////////////////////////////////////////////////////////////////
 	//////////////////////////// plot /////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////
-
-	// voronoi cells for better hover
-	// var cell = g
-	// 	.append("g")
-	// 	.attr("class", "cells")
-	// 	.selectAll("g")
-	// 	.data(
-	// 		d3
-	// 			.voronoi()
-	// 			.extent([
-	// 				[-margin.left, -margin.top],
-	// 				[width + margin.right, height + margin.top]
-	// 			])
-	// 			.x(function (d) {
-	// 				return d.x;
-	// 			})
-	// 			.y(function (d) {
-	// 				return d.y;
-	// 			})
-	// 			.polygons(data)
-	// 	)
-	// 	.enter()
-	// 	.append("g");
-
-	// bouncy dots from here https://bl.ocks.org/maegul/7d8e7342c649fdc077a6984e52da4b62
-	// function tick() {
-	// 	selectAll(".dots")
-	// 		.attr("cx", (d) => d.x)
-	// 		.attr("cy", (d) => d.y);
-	// };
 
 	// dots
 	const dots = svg
@@ -248,7 +199,7 @@ const createChart = async () => {
 		.attr("cy", (d) => d.y)
 		.attr("fill", "#3f8ca5")
 		// tooltip
-		.on("mouseover", (d, i) => {
+		.on("mouseenter", (d, i) => {
 			var mouseX = event.pageX + 10;
 			var mouseY = event.pageY + 10;
 			d3.select(".tooltip")
@@ -294,33 +245,12 @@ const createChart = async () => {
 		document.getElementById("overlay").style.display = "block";
 		var detailsHtml = Mustache.render(template, f);
 		d3.select("#overlay").html(detailsHtml);
+		// d3.select("#overlay").classed("hidden", false);
 	}
 
-	function off() {
-		document.getElementById("overlay").style.display = "none";
-	}
-
-	function showDetails(f) {
-		var detailsHtml = Mustache.render(template, f);
-		// Hide the initial container.
-		// d3.select("#initial").classed("hidden", true);
-		// Put the HTML output in the details container and show (unhide) it.
-		d3.select("#details").html(detailsHtml);
-		// d3.select("#overlay").html(detailsHtml);
-		d3.select("#details").classed("hidden", false);
-		d3.select("#details").on("click", off);
-	}
-
-	function hideDetails() {
-		// Hide the details
-		// select("#details").attr("display", "none");
-		d3.select("#details").classed("hidden", true);
-		// Show the initial content
-		// select("#initial").attr("display", "none");
-		// d3.select("#initial").classed("hidden", false);
-	}
-
-	// select(HTMLAnchorElement).on("click", hideDetails);
+	// function off() {
+	// 	document.getElementById("overlay").style.display = "none";
+	// }
 };
 
 createChart();

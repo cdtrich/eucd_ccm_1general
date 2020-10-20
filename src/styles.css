@@ -80,13 +80,13 @@ h1 {
 .tooltip {
 	/* background: white; */
 	background: rgba(255, 255, 255, 0.95);
-	font-size: 0.65em;
+	font-size: 1em;
 	/* line-height: 1; */
-	padding: 0px;
+	padding: 0em 1em;
 	/* margin-bottom: 0em;
 	margin-top: 0em; */
 	border: 0px solid #fff;
-	padding: 10px;
+	/* padding: 10px; */
 	/* position: relative; positioning for top left! */
 	position: absolute;
 	max-width: 400px;
@@ -106,11 +106,12 @@ h1 {
 /* ///////////////////////////////////////////////// */
 
 table {
-	float: center;
+	/* float: center; */
 	text-align: left;
 	width: 100%;
 	padding: 5% 20%;
 	/* background-color: white; */
+	/* z-index: 3; */
 }
 
 td,
@@ -138,7 +139,7 @@ tr:hover {
 .definition {
 	font-size: 0.75em;
 	color: #aaa;
-	text-align: center;
+	text-align: left;
 	border-bottom: 1px solid #eee;
 	padding-top: 1em;
 	padding-bottom: 0.1em;
@@ -182,7 +183,7 @@ label {
 		255,
 		0.9
 	); /* Black background with opacity */
-	z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+	z-index: 1; /* Specify a stack order in case you're using a different order for other elements */
 	cursor: pointer; /* Add a pointer on hover */
 }
 
