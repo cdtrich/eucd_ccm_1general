@@ -41,7 +41,7 @@ h1 {
 }
 
 .app {
-	margin-top: 3em;
+	margin-top: 5em;
 	margin-bottom: 5em;
 }
 
@@ -57,6 +57,10 @@ h1 {
 	stroke: #fff;
 	stroke-width: 0.5;
 	shape-rendering: crispEdges;
+}
+
+.x-axis text {
+	font-size: 1em;
 }
 
 .y-axis line {
@@ -150,7 +154,7 @@ td {
 /* ///////////////////////////////////////////////// */
 
 .legend {
-	/* padding: 1em 0em 0em 0em; */
+	/* padding: 0em 0em 0em 0em; */
 	/* background-color: #eee; */
 }
 
