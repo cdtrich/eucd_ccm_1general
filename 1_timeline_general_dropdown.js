@@ -23,7 +23,7 @@ console.clear();
 
 // import mustache
 // https://github.com/janl/mustache.js
-const Mustache = require("mustache");
+// const Mustache = require("mustache");
 
 // if element already exists, return selection
 // if it doesn't exist, create it and give it class
