@@ -262,8 +262,8 @@ const createChart = async () => {
 		// var y = d.y;
 		// tooltip
 		d3.select(".tooltip")
-			// 	.style("visibility", "visible")
-			// 	.style("opacity", 1)
+			.style("visibility", "visible")
+			.style("opacity", 1)
 			// 	.style(
 			// 		"transform",
 			// 		`translate(
@@ -271,8 +271,8 @@ const createChart = async () => {
 			// calc(${y + margin.top}px - 5%))`
 			// );
 			.style("left", mouseX + "px")
-			.style("top", mouseY + "px");
-		// .text(d.name);
+			.style("top", mouseY + "px")
+			.text(d.name);
 		// smoother change in opacity
 		dots.transition().style("opacity", 0.5);
 		// d3.select(event.target).style("opacity", 1);
