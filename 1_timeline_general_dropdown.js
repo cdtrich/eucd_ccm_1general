@@ -267,8 +267,8 @@ const createChart = async () => {
 			.style(
 				"transform",
 				`translate(
-				calc(${x + margin.left}px - 50%),
-				calc(${y + margin.top}px - 50%))`
+		calc(${x + margin.left}px - 50%), 
+		calc(${y + margin.top}px - 5%))`
 			);
 		// .style("left", mouseX + "px")
 		// .style("top", mouseY + "px")
@@ -289,8 +289,8 @@ const createChart = async () => {
 			.style(
 				"transform",
 				`translate(
-		calc(${x + margin.left}px - 80%), 
-		calc(${y + margin.top}px - 50%))`
+		calc(${x + margin.left}px - 50%), 
+		calc(${y + margin.top}px - 5%))`
 			)
 			// .style("left", mouseX + "px")
 			// .style("top", mouseY + "px")
