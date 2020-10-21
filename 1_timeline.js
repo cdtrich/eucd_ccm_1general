@@ -2,18 +2,19 @@
 //////////////////////////// libs /////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
 
-// import * as d3 from "d3";
-// import { easeBounceIn, easeCubic, easeExp, easePoly } from "d3";
+import * as d3 from "d3";
+import { easeBounceIn, easeCubic, easeExp, easePoly } from "d3";
 // import { csv } from "d3-fetch";
 
-// import _ from "lodash";
+import _ from "lodash";
 
 ///////////////////////////////////////////////////////////////////////////
 //////////////////////////// to do ////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
 
-// dynamic dropdown selection: http://bl.ocks.org/williaster/10ef968ccfdc71c30ef8
-// modules for wp embed
+// opacity on hover
+// dynamic dropdown selection
+// load data at end as global var after plot function
 
 ///////////////////////////////////////////////////////////////////////////
 //////////////////////////// dependencies /////////////////////////////////
@@ -99,6 +100,7 @@ const createChart = async () => {
 			fdi: d.Foreign_Direct_Investment,
 			attack_gdpRank: d.Attack_GDP_rank,
 			target_gdpRank: d.Target_GDP_rank,
+			// reportLabel: d.Report_day + "-" + d.Report_month + "-" + d.Report_year,
 			attacker_jurisdiction: d.Attack_jurisdiction,
 			target_jurisdiction: d.Target_jurisdiction,
 			victim_jurisdiction: d.Victim_jurisdiction,
@@ -115,7 +117,7 @@ const createChart = async () => {
 	//////////////////////////// accessor functions ///////////////////////////
 	///////////////////////////////////////////////////////////////////////////
 
-	// const xAcc = (d) => d.startYear;
+	const xAcc = (d) => d.startYear;
 
 	///////////////////////////////////////////////////////////////////////////
 	//////////////////////////// Set up svg ///////////////////////////////////
@@ -193,9 +195,9 @@ const createChart = async () => {
 		.value();
 
 	// weirdly doesn't show in legend
-	var dataTypeLabel = dataType;
-	// var dataTypeLabel = dataType.map((d) => wrap(d, 20));
+	var dataTypeLabel = dataType.map((d) => wrap(d, 20));
 	// var dataTypeLabel = dataType.map((d) => d + "wrap");
+	// console.log(dataType);
 	// console.log(dataTypeLabel);
 
 	const xScale = d3
