@@ -256,22 +256,22 @@ const createChart = async () => {
 	const tooltip = selectOrCreate("div", "tooltip", d3.select("#app"));
 
 	dots.on("mouseover", (event, d) => {
-		// var mouseX = event.pageX + 5;
-		// var mouseY = event.pageY + 5;
-		var x = d.x;
-		var y = d.y;
+		var mouseX = event.pageX + 5;
+		var mouseY = event.pageY + 5;
+		// var x = d.x;
+		// var y = d.y;
 		// tooltip
 		d3.select(".tooltip")
-			.style("visibility", "visible")
-			.style("opacity", 1)
-			.style(
-				"transform",
-				`translate(
-		calc(${x + margin.left}px - 50%), 
-		calc(${y + margin.top}px - 5%))`
-			);
-		// .style("left", mouseX + "px")
-		// .style("top", mouseY + "px")
+			// 	.style("visibility", "visible")
+			// 	.style("opacity", 1)
+			// 	.style(
+			// 		"transform",
+			// 		`translate(
+			// calc(${x + margin.left}px - 50%),
+			// calc(${y + margin.top}px - 5%))`
+			// );
+			.style("left", mouseX + "px")
+			.style("top", mouseY + "px");
 		// .text(d.name);
 		// smoother change in opacity
 		dots.transition().style("opacity", 0.5);
@@ -280,20 +280,20 @@ const createChart = async () => {
 	});
 
 	dots.on("mousemove", (d, i) => {
-		// var mouseX = event.pageX + 5;
-		// var mouseY = event.pageY + 5;
-		var x = d.x;
-		var y = d.y;
+		var mouseX = event.pageX + 5;
+		var mouseY = event.pageY + 5;
+		// var x = d.x;
+		// var y = d.y;
 		d3.select(".tooltip")
-			// tooltip
-			.style(
-				"transform",
-				`translate(
-		calc(${x + margin.left}px - 50%), 
-		calc(${y + margin.top}px - 5%))`
-			)
-			// .style("left", mouseX + "px")
-			// .style("top", mouseY + "px")
+			// 	// tooltip
+			// 	.style(
+			// 		"transform",
+			// 		`translate(
+			// calc(${x + margin.left}px - 50%),
+			// calc(${y + margin.top}px - 5%))`
+			// 	)
+			.style("left", mouseX + "px")
+			.style("top", mouseY + "px")
 			.text(d.name);
 	});
 
