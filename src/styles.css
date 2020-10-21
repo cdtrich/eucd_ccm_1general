@@ -5,7 +5,7 @@
 text,
 * {
 	font-family: "Roboto Condensed", sans-serif;
-	font-size: 1em;
+	font-size: 16px;
 }
 
 h1 {
@@ -17,7 +17,7 @@ h1 {
 #story {
 	float: right;
 	width: 66%;
-	/* margin-right: 1em; */
+	/* margin-right: 16px; */
 	/* position: relative; */
 }
 
@@ -41,8 +41,8 @@ h1 {
 }
 
 .app {
-	margin-top: 5em;
-	margin-bottom: 5em;
+	margin-top: 2em;
+	margin-bottom: 2em;
 }
 
 .label {
@@ -60,7 +60,7 @@ h1 {
 }
 
 .x-axis text {
-	font-size: 1em;
+	font-size: 16px;
 }
 
 .y-axis line {
@@ -80,11 +80,11 @@ h1 {
 .tooltip {
 	/* background: none; */
 	background: rgba(255, 255, 255, 0.9);
-	border-radius: 1em;
+	border-radius: 16px;
 	color: #000;
-	font-size: 1em;
+	font-size: 16px;
 	/* text-shadow: 0 0 5px white; */
-	padding: 0.5em 1em;
+	padding: 0.5em 16px;
 	position: absolute;
 	max-width: 400px;
 	z-index: 2;
@@ -132,8 +132,8 @@ td {
 	color: #aaa;
 	text-align: left;
 	border-bottom: 1px solid #eee;
-	padding-top: 1em;
-	padding-bottom: 0.1em;
+	padding-top: 16px;
+	padding-bottom: 0.16px;
 }
 
 .definition:hover {
@@ -142,7 +142,7 @@ td {
 
 /* #close-details {
 	color: black;
-	text-decoration: none;
+	text-decoration: none; 
 }
 
 #close-details:hover {
@@ -154,7 +154,7 @@ td {
 /* ///////////////////////////////////////////////// */
 
 .legend {
-	/* padding: 0em 0em 0em 0em; */
+	padding: 16px 0em 0em 0em;
 	/* background-color: #eee; */
 }
 

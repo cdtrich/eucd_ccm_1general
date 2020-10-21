@@ -327,11 +327,12 @@ const createChart = async () => {
 	var dataL = 0;
 	var legendOffset = (width - 100) / dataType.length;
 
-	var legend = svg
-		// .select(".legend")
-		.append("g")
+	var legend = d3
+		.select(".legend")
+		// or svg.append("g")
+		.append("svg")
 		.attr("width", width)
-		.attr("height", radius * 4);
+		.attr("height", radius * 2);
 
 	var drawLegend = legend
 		.selectAll(".legend")
@@ -353,14 +354,14 @@ const createChart = async () => {
 
 	drawLegend
 		.append("circle")
-		.attr("cx", radius * 4)
+		.attr("cx", radius)
 		.attr("cy", radius)
 		.attr("r", radius / 2)
 		.style("fill", (d, i) => colorsType[i]);
 
 	drawLegend
 		.append("text")
-		.attr("x", radius * 5)
+		.attr("x", radius + radius)
 		.attr("y", radius * 1.5)
 		.text((d) => d)
 		.attr("class", "textselected")
