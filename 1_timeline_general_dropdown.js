@@ -42,49 +42,29 @@ const createChart = async () => {
 	//////////////////////////// data /////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////
 
-	const url = "./data/EUISS Database.csv";
+	// const url = "https://eucyberdirect.eu/wp-content/uploads/2020/11/cpi_cyber_operations_database_2020_version-1.0.csv";
+	const url = "./data/CPI_Cyber_Operations_Database_2020_Version 1.0.csv";
 
 	let data = await d3.csv(url, (d) => {
-		// console.log(d);
 		return {
 			// order
 			// id: d.CPI_CODE,
 			name: d.Name,
 			// plotting
-			// start: new Date(+d.Start_year, +d.Start_month - 1, +d.Start_day),
 			startYear: +d.Start_year,
-			// startFix: new Date(
-			// 	+d.Start_year,
-			// 	+d.Start_month - 1,
-			// 	_.replace(d.Start_day, "unknown", 1)
-			// ),
-			// startLabel: d.Start_day + "-" + d.Start_month + "-" + d.Start_year,
-			// end: new Date(+d.End_year, +d.End_month, +d.end_day),
-			// endYear: +d.End_year,
-			// endFix: new Date(
-			// 	+d.End_year,
-			// 	+d.End_month - 1,
-			// 	_.replace(d.End_day, "unknown", 1)
-			// ),
-			// endLabel: d.End_day + "-" + d.End_month + "-" + d.End_year,
 			reportDay: d.Report_day,
 			reportMonth: d.Report_month,
 			reportYear: d.Report_year,
 			report: new Date(+d.Report_year, +d.Report_month, +d.Report_day),
-			// reportFix: new Date(
-			// 	+d.Report_year,
-			// 	+d.Report_month - 1,
-			// 	_.replace(d.Report_day, "unknown", 1)
-			// ),
 			// labels
 			dyad: d.Dyad,
 			disputeType: d.Type_of_dispute,
 			geopoliticalSetting: d.Geopolitical_setting,
-			initialaccesEnterprise: d.Initial_access_MITRE_ATT_Enterprise,
-			initialaccesICS: d.Initial_access_MITRE_ATT_ICS,
-			impactEnterprise: d.Impact_MITRE_ATT_Enterprise,
-			addImpactEnterprise: d.Additional_Impact_MITRE_ATT_Enterprise,
-			impactICS: d.Impact_MITRE_ATT_ICS,
+			initialaccesEnterprise: d.Initial_access_MITRE_ATTCK_for_Enterprise,
+			initialaccesICS: d.Initial_access_MITRE_ATTCK_for_ICS,
+			impactEnterprise: d.Impact_MITRE_ATTCK_for_Enterprise,
+			addImpactEnterprise: d.Additional_Impact_MITRE_ATTCK_for_Enterprise,
+			impactICS: d.Impact_MITRE_ATTCK_for_ICS,
 			infosecEffect: d.Infosec_effect,
 			physicalEffect: d.Physical_effect,
 			corporateDowntime: d.Corporate_downtime,
@@ -112,18 +92,12 @@ const createChart = async () => {
 	// console.log(data);
 
 	///////////////////////////////////////////////////////////////////////////
-	//////////////////////////// accessor functions ///////////////////////////
-	///////////////////////////////////////////////////////////////////////////
-
-	// const xAcc = (d) => d.startYear;
-
-	///////////////////////////////////////////////////////////////////////////
 	//////////////////////////// Set up svg ///////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////
 
 	const width = d3.min([window.innerWidth * 0.9, window.innerHeight * 0.9]),
 		height = d3.min([window.innerWidth * 0.33, window.innerHeight * 0.33]),
-		radius = width / 60,
+		radius = width / 70,
 		margin = { top: 20, right: 50, bottom: 20, left: 50 };
 	// const svg = d3.create("svg")
 	// .attr("viewBox", [0, 0, width, height]);
@@ -131,9 +105,6 @@ const createChart = async () => {
 	const svg = d3
 		.select("#app") // id app
 		.append("svg")
-		// .attr("width", width)
-		// .attr("height", height)
-		// .attr("viewBox", [-margin.left, 0, width , height])
 		.attr("viewBox", [margin.left / 2, margin.right, width, height])
 		.style("overflow", "visible");
 
@@ -163,8 +134,6 @@ const createChart = async () => {
 			default:
 		}
 	});
-
-	// console.log(data);
 
 	///////////////////////////////////////////////////////////////////////////
 	//////////////////////////// scales ///////////////////////////////////////
@@ -217,10 +186,10 @@ const createChart = async () => {
 				.forceX(function (d) {
 					return xScale(d.startYear);
 				})
-				.strength(0.99)
+				.strength(0.95)
 		)
 		.force("y", d3.forceY(height).strength(0.05))
-		.force("collide", d3.forceCollide(radius))
+		.force("collide", d3.forceCollide(radius * 1.5))
 		.stop();
 
 	for (var i = 0; i < 10; ++i) simulation.tick();
@@ -253,7 +222,7 @@ const createChart = async () => {
 
 	// tooltip
 	// const tooltip = svg.append("div").classed("tooltip", true);
-	const tooltip = selectOrCreate("div", "tooltip", d3.select("#app"));
+	// const tooltip = selectOrCreate("div", "tooltip", d3.select("#app"));
 
 	dots.on("mouseover", (event, d) => {
 		var mouseX = event.pageX + 5;
@@ -318,7 +287,6 @@ const createChart = async () => {
 		.classed("x-axis", true)
 		.attr("transform", "translate(0," + height + ")")
 		.call(xAxis);
-	// });
 
 	///////////////////////////////////////////////////////////////////////////
 	//////////////////////////// details //////////////////////////////////////
@@ -340,7 +308,6 @@ const createChart = async () => {
 		.enter()
 		.append("g")
 		.attr("class", "legend")
-		// .attr("transform", "translate(" + (width - cScale.length * 24) / 2 + ",10");
 		.attr("transform", function (d, i) {
 			if (i === 0) {
 				dataL = d.length + legendOffset;
@@ -375,7 +342,6 @@ const createChart = async () => {
 		document.getElementById("overlay").style.display = "block";
 		var detailsHtml = Mustache.render(template, f);
 		d3.select("#overlay").html(detailsHtml);
-		// d3.select("#overlay").classed("hidden", false);
 	}
 
 	// function off() {
