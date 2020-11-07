@@ -37,44 +37,20 @@
 	</head>
 
 	<body>
-		<!-- ////////////////////////////////////////////////////// -->
-		<!-- circlepack /////////////////////////////////////////// -->
-		<!-- ////////////////////////////////////////////////////// -->
-
 		<!-- <img
 			class="alignnone size-full wp-image-3294"
 			src="./data/conflict types.svg"
 			alt=""
 		/> -->
 
-		<!-- <div id="story"> -->
-		<!-- <div id="types" class="app"> -->
-		<!-- <div id="details" class="hidden row">Details container</div> -->
-		<!-- </div> -->
-
-		<!-- //////////////////////////////////////////////////// -->
-		<!-- dropdown /////////////////////////////////////////// -->
-		<!-- //////////////////////////////////////////////////// -->
-		<!-- <div class="row"> -->
-		<select id="dropdown_attacker" class="three columns">
-			<option value="" selected="selected"><sup>select for color</sup></option>
-			<option value="attacker_jurisdiction">attacker jurisdiction</option>
-			<option value="target_jurisdiction">target jurisdiction</option>
-			<option value="military">Ongoing_military_confrontation</option>
-			<option value="command">Existence of cyber command (attacker)</option>
-			<option value="us_me">US military effects</option>
-		</select>
-		<!-- </div> -->
-
 		<!-- //////////////////////////////////////////////////// -->
 		<!-- tooltip //////////////////////////////////////////// -->
 		<!-- //////////////////////////////////////////////////// -->
-		<div class="tooltip"></div>
+		<!-- <div class="tooltip"></div> -->
 
-		<!-- ////////////////////////////////////////////////////// -->
-		<!-- overlay ////////////////////////////////////////////// -->
-		<!-- ////////////////////////////////////////////////////// -->
-
+		<!-- //////////////////////////////////////////////////// -->
+		<!-- overlaytooltip ///////////////////////////////////// -->
+		<!-- //////////////////////////////////////////////////// -->
 		<script>
 			function off() {
 				document.getElementById("overlay").style.display = "none";
@@ -117,19 +93,26 @@
 		<!-- ////////////////////////////////////////////////////// -->
 		<!-- app ////////////////////////////////////////////////// -->
 		<!-- ////////////////////////////////////////////////////// -->
-		<div class="legend">
-			<div class="legend"></div>
-		</div>
-		<div id="app" class="app">
-			<!-- <div id="details" class="hidden row">Details container</div> -->
+		<div id="wrapper">
+			<!-- dropdown /////////////////////////////////////////// -->
+			<select id="dropdown" class="three columns">
+				<option value="" selected="selected"
+					><sup>select for color</sup></option
+				>
+				<option value="attacker_jurisdiction">attacker jurisdiction</option>
+				<option value="target_jurisdiction">target jurisdiction</option>
+				<option value="military">Ongoing_military_confrontation</option>
+				<option value="command">Existence of cyber command (attacker)</option>
+				<option value="us_me">US military effects</option>
+			</select>
+			<!-- legend /////////////////////////////////////////// -->
+			<div class="legend">
+				<div class="legend"></div>
+			</div>
 			<div id="overlay" onclick="off()">
-				<!-- <div id="details"></div> -->
 				<div id="details" class="hidden row">Details container</div>
 			</div>
 		</div>
-		<!-- <p class="definition" text-align="right">
-			[click dots for details, click again to close]
-		</p> -->
 	</body>
 	<!-- <script type="module" src="./0_types.js"></script> -->
 	<script type="module" src="./1_timeline_general_dropdown.js"></script>

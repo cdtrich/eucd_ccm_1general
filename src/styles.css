@@ -40,7 +40,7 @@ h1 {
 	/* width: 200%; */
 }
 
-.app {
+#wrapper {
 	margin-top: 2em;
 	margin-bottom: 2em;
 }
@@ -53,24 +53,10 @@ h1 {
 /* axes //////////////////////////////////////////// */
 /* ///////////////////////////////////////////////// */
 
-.x-axis path {
+.xAxis path {
 	stroke: #fff;
 	stroke-width: 0.5;
 	shape-rendering: crispEdges;
-}
-
-.x-axis text {
-	/* font-size: 1em; */
-}
-
-.y-axis line {
-	/* stroke: #eee;
-	stroke-width: 0.5;
-	shape-rendering: crispEdges; */
-	/* stroke: #eee; */
-	stroke: #c6c6c6;
-	/* font-weight: normal; */
-	/* text-color: #000; */
 }
 
 /* ///////////////////////////////////////////////// */
