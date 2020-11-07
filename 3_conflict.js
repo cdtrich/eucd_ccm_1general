@@ -70,13 +70,16 @@ const createChart = async () => {
 
 	//////////////////////////// accessors ////////////////////////////////////
 
-	const col = "attacker_jurisdiction";
+	const col = "military";
 	const xAccessor = (d) => d.startYear;
 	const cAccessor = (d) => d[col];
+	// const cAccessor = (d) => d.windSpeed;
+	const rAccessor = (d) => d[col];
+	// const oAccessor = (d) => d.temperatureMax;
 
 	//////////////////////////// Set up svg ///////////////////////////////////
 
-	const wrapper = d3.select("#appGeneral").append("svg");
+	const wrapper = d3.select("#appConflict").append("svg");
 
 	// if element already exists, return selection
 	// if it doesn't exist, create it and give it class
@@ -92,7 +95,7 @@ const createChart = async () => {
 
 	const update = () => {
 		//////////////////////////// sizes ///////////////////////////////////
-		const size = d3.max([window.innerWidth * 0.9, window.innerHeight * 0.9]);
+		const size = d3.min([window.innerWidth * 0.9, window.innerHeight * 0.9]);
 
 		let dimensions = {
 			width: size,
@@ -177,6 +180,11 @@ const createChart = async () => {
 
 		const cScale = d3.scaleOrdinal().domain(dataType).range(colorsType);
 
+		const sScale = d3
+			.scaleOrdinal()
+			.domain(dataType)
+			.range([radius * 0.5, radius * 2, radius, radius * 1.5]);
+
 		var simulation = d3
 			.forceSimulation(data)
 			.force(
@@ -188,7 +196,7 @@ const createChart = async () => {
 					.strength(1)
 			)
 			.force("y", d3.forceY(dimensions.boundedHeight).strength(0.05))
-			.force("collide", d3.forceCollide(radius * 2))
+			.force("collide", d3.forceCollide(radius * 3))
 			.stop();
 
 		for (var i = 0; i < 10; ++i) simulation.tick();
@@ -213,7 +221,7 @@ const createChart = async () => {
 			const tooltip = selectOrCreate(
 				"div",
 				"tooltip",
-				d3.select("#appGeneral")
+				d3.select("#appConflict")
 			);
 
 			const dots = bounds
@@ -232,7 +240,7 @@ const createChart = async () => {
 			dots
 				.transition()
 				.duration((d, i) => i * 50)
-				.attr("r", radius)
+				.attr("r", (d) => sScale(rAccessor(d)))
 				.attr("cx", (d) => xScale(xAccessor(d)))
 				.attr("cy", (d) => d.y)
 				.attr("fill", (d) => cScale(cAccessor(d)))
