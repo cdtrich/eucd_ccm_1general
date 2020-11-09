@@ -2,6 +2,8 @@
 //////////////////////////// libs /////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
 
+const { color } = require("d3");
+
 // import * as d3 from "d3";
 // import { easeBounceIn, easeCubic, easeExp, easePoly } from "d3";
 // import { csv } from "d3-fetch";
@@ -27,6 +29,7 @@ const createChart = async () => {
 		return {
 			// order
 			name: d.Name,
+			cpi: d.CPI_CODE,
 			// plotting
 			startYear: +d.Start_year,
 			reportDay: d.Report_day,
@@ -63,6 +66,9 @@ const createChart = async () => {
 			military: d.Ongoing_military_confrontation,
 			command: d.Attack_cyber_command.trim(),
 			us_me: d.US_military_effects,
+			sector_i: d.Target_CI_sector.trim(),
+			sector_ii: d.Target_CI_sector_II.trim(),
+			sector_iii: d.Target_CI_sector_III.trim(),
 			url: d.url
 		};
 	});
@@ -70,13 +76,14 @@ const createChart = async () => {
 
 	//////////////////////////// accessors ////////////////////////////////////
 
-	const col = "attacker_jurisdiction";
-	const xAccessor = (d) => d.startYear;
-	const cAccessor = (d) => d[col];
+	const col = "sector";
+	const xAccessor = (d) => d.cpi;
+	const yAccessor = (d) => d.sector;
+	// const cAccessor = (d) => d[col];
 
 	//////////////////////////// Set up svg ///////////////////////////////////
 
-	const wrapper = d3.select("#appGeneral").append("svg");
+	const wrapper = d3.select("#appSectors").append("svg");
 
 	// if element already exists, return selection
 	// if it doesn't exist, create it and give it class
@@ -101,7 +108,7 @@ const createChart = async () => {
 				top: 15,
 				right: 15,
 				bottom: 60,
-				left: 60
+				left: 60 * 4
 			}
 		};
 
@@ -147,6 +154,53 @@ const createChart = async () => {
 				default:
 			}
 		});
+		// console.log(data);
+
+		// long form for each sector
+		var short = _.cloneDeep(data);
+		// var lo = _.flatten(data);
+		var lo = _.flattenDeep(data);
+		data = [].concat.apply([], [lo, lo, lo]);
+		// console.log(short.length)
+
+		var sectors = (d, i, arr) => {
+			// console.log(d.sector_i);
+			// console.log(i + " loop1");
+			d.sector = d.sector_i;
+			if (i >= arr.length / 3 && i < (arr.length / 3) * 2) {
+				// console.log(d.sector_ii);
+				// console.log(i + " loop2");
+				d.sector = d.sector_ii;
+			}
+			if (i >= (arr.length / 3) * 2 && i < (arr.length / 3) * 3) {
+				// console.log(d.sector_iii);
+				// console.log(i + " loop3");
+				d.sector = d.sector_iii;
+			}
+		};
+
+		data.forEach(sectors);
+
+		// var i;
+		// data.forEach((d, i, arr) => {
+		//   // console.log(i)
+		// 	// if (i < arr.length / 3) {
+		// 		console.log(d.sector_i);
+		// 		// console.log(i + " loop1");
+		//     d.sector = d.sector_i;
+		// 	if (i >= (arr.length / 3) && i < (arr.length / 3) * 2) {
+		//     console.log(d.sector_ii);
+		// 		// console.log(i + " loop2");
+		//     d.sector = d.sector_ii;
+		// 	} if (i >= (arr.length / 3) * 2 && i < (arr.length / 3) * 3) {
+		// 		console.log(d.sector_iii);
+		// 		// console.log(i + " loop3");
+		//     d.sector = d.sector_iii;
+		// 	}
+		// });
+
+		console.log([data[0].sector, data[23].sector, data[46].sector]);
+		// console.log([data[0].sectorr, data[23].sectorr, data[46].sectorr]);
 		// console.log(data)
 
 		//////////////////////////// colors ///////////////////////////////////////
@@ -166,32 +220,25 @@ const createChart = async () => {
 			.map((d) => d[col])
 			.uniq()
 			.value();
-		// console.log(dataType);
+
+		var xValue = _.chain(data)
+			.map((d) => d.cpi)
+			.uniq()
+			.value();
 
 		//////////////////////////// scales ///////////////////////////////////////
 
 		const xScale = d3
-			.scaleLinear()
-			.domain(d3.extent(data, xAccessor))
+			.scaleBand()
+			.domain(xValue)
 			.range([0, dimensions.boundedWidth]);
 
-		const cScale = d3.scaleOrdinal().domain(dataType).range(colorsType);
+		const yScale = d3
+			.scaleBand()
+			.domain(dataType)
+			.range([dimensions.boundedHeight, 0]);
 
-		var simulation = d3
-			.forceSimulation(data)
-			.force(
-				"x",
-				d3
-					.forceX(function (d) {
-						return xScale(xAccessor(d));
-					})
-					.strength(1)
-			)
-			.force("y", d3.forceY(dimensions.boundedHeight).strength(0.05))
-			.force("collide", d3.forceCollide(radius * 2))
-			.stop();
-
-		for (var i = 0; i < 10; ++i) simulation.tick();
+		// const cScale = d3.scaleOrdinal().domain(dataType).range(colorsType);
 
 		//////////////////////////// axes /////////////////////////////////////////
 
@@ -200,11 +247,21 @@ const createChart = async () => {
 		const xAxisGenerator = d3
 			.axisBottom()
 			.scale(xScale)
-			.tickFormat(formatAxis)
+			// .tickFormat(formatAxis)
 			.ticks();
+
 		const xAxis = selectOrCreate("g", "xAxis", bounds)
 			.call(xAxisGenerator)
 			.style("transform", `translate(0,${dimensions.boundedHeight}px)`);
+
+		const yAxisGenerator = d3
+			.axisLeft()
+			.scale(yScale)
+			// .tickFormat(formatAxis)
+			.ticks();
+
+		const yAxis = selectOrCreate("g", "yAxis", bounds).call(yAxisGenerator);
+		// .style("transform", `translate(0,${dimensions.boundedWidth}px)`);
 
 		//////////////////////////// plot /////////////////////////////////////////
 
@@ -213,7 +270,7 @@ const createChart = async () => {
 			const tooltip = selectOrCreate(
 				"div",
 				"tooltip",
-				d3.select("#appGeneral")
+				d3.select("#appSectors")
 			);
 
 			const dots = bounds
@@ -234,8 +291,8 @@ const createChart = async () => {
 				.duration((d, i) => i * 50)
 				.attr("r", radius)
 				.attr("cx", (d) => xScale(xAccessor(d)))
-				.attr("cy", (d) => d.y)
-				.attr("fill", (d) => cScale(cAccessor(d)))
+				.attr("cy", (d) => yScale(yAccessor(d)))
+				.attr("fill", colorsType[0])
 				.style("opacity", 1);
 
 			// tooltip
@@ -273,44 +330,44 @@ const createChart = async () => {
 			//////////////////////////// details //////////////////////////////////////
 			///////////////////////////////////////////////////////////////////////////
 
-			var dataL = 0;
-			var legendOffset = (dimensions.boundedWidth - 100) / dataType.length;
+			// var dataL = 0;
+			// var legendOffset = (dimensions.boundedWidth - 100) / dataType.length;
 
-			var legend = selectOrCreate("g", "legend", bounds)
-				.attr("width", dimensions.boundedWidth)
-				.attr("height", radius * 2);
+			// var legend = selectOrCreate("g", "legend", bounds)
+			// 	.attr("width", dimensions.boundedWidth)
+			// 	.attr("height", radius * 2);
 
-			var drawLegend = legend
-				.selectAll(".legend")
-				.data(dataType)
-				.enter()
-				.append("g")
-				.attr("class", "legend")
-				.attr("transform", function (d, i) {
-					if (i === 0) {
-						dataL = d.length + legendOffset;
-						return "translate(0,0)";
-					} else {
-						var newdataL = dataL;
-						dataL += d.length + legendOffset;
-						return "translate(" + newdataL + ",0)";
-					}
-				});
+			// var drawLegend = legend
+			// 	.selectAll(".legend")
+			// 	.data(dataType)
+			// 	.enter()
+			// 	.append("g")
+			// 	.attr("class", "legend")
+			// 	.attr("transform", function (d, i) {
+			// 		if (i === 0) {
+			// 			dataL = d.length + legendOffset;
+			// 			return "translate(0,0)";
+			// 		} else {
+			// 			var newdataL = dataL;
+			// 			dataL += d.length + legendOffset;
+			// 			return "translate(" + newdataL + ",0)";
+			// 		}
+			// 	});
 
-			drawLegend
-				.append("circle")
-				.attr("cx", radius)
-				.attr("cy", radius)
-				.attr("r", radius / 2)
-				.style("fill", (d, i) => colorsType[i]);
+			// drawLegend
+			// 	.append("circle")
+			// 	.attr("cx", radius)
+			// 	.attr("cy", radius)
+			// 	.attr("r", radius / 2)
+			// 	.style("fill", (d, i) => colorsType[i]);
 
-			drawLegend
-				.append("text")
-				.attr("x", radius + radius)
-				.attr("y", radius * 1.5)
-				.text((d) => d)
-				.attr("class", "textselected")
-				.style("text-anchor", "start");
+			// drawLegend
+			// 	.append("text")
+			// 	.attr("x", radius + radius)
+			// 	.attr("y", radius * 1.5)
+			// 	.text((d) => d)
+			// 	.attr("class", "textselected")
+			// 	.style("text-anchor", "start");
 
 			///////////////////////////////////////////////////////////////////////////
 			//////////////////////////// details //////////////////////////////////////

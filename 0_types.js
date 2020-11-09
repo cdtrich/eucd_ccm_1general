@@ -2,10 +2,10 @@
 //////////////////////////// libs /////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
 
-import * as d3 from "d3";
+// import * as d3 from "d3";
 // import { csv } from "d3-fetch";
 
-import _ from "lodash";
+// import _ from "lodash";
 
 ///////////////////////////////////////////////////////////////////////////
 //////////////////////////// to do ////////////////////////////////////////
@@ -69,15 +69,26 @@ const createChart = async () => {
 		]
 	};
 
-	///////////////////////////////////////////////////////////////////////////
-	//////////////////////////// accessor functions ///////////////////////////
-	///////////////////////////////////////////////////////////////////////////
+	//////////////////////////// accessors ////////////////////////////////////
 
-	const rAcc = (d) => d.val;
-	const tAcc = (d) => d.startYear;
-	const vAcc = (d) => d.startYear;
+	const col = "title";
+	// const xAccessor = (d) => d.startYear;
+	const cAccessor = (d) => d[col];
+	const rAccessor = (d) => d.val;
+	const tAccessor = (d) => d.startYear;
+	const vAccessor = (d) => d.startYear;
 
-	console.log(data);
+	//////////////////////////// Set up svg ///////////////////////////////////
+
+	const wrapper = d3.select("#appTypes").append("svg");
+
+	// if element already exists, return selection
+	// if it doesn't exist, create it and give it class
+	const selectOrCreate = (elementType, className, parent) => {
+		const selection = parent.select("." + className);
+		if (!selection.empty()) return selection;
+		return parent.append(elementType).attr("class", className);
+	};
 
 	///////////////////////////////////////////////////////////////////////////
 	//////////////////////////// Set up svg ///////////////////////////////////
@@ -88,7 +99,7 @@ const createChart = async () => {
 	const margin = { top: 20, right: 20, bottom: 20, left: 120 };
 
 	const svg = d3
-		.select("#types") // id app
+		.select("#appTypes") // id app
 		.append("svg")
 		.attr("viewBox", [-margin.left, 0, width + width - 800, height])
 		.style("overflow", "visible");
@@ -114,9 +125,10 @@ const createChart = async () => {
 
 	// console.log(xScale.domain(), xScale.range());
 
-	var root = d3.hierarchy(data)
-	.sum((d) => (d.hasOwnProperty("val") ? d.val : 0))
-	.sort((a, b) => b.value - a.value);
+	var root = d3
+		.hierarchy(data)
+		.sum((d) => (d.hasOwnProperty("val") ? d.val : 0))
+		.sort((a, b) => b.value - a.value);
 
 	var partition = d3.pack().size([500, 500]);
 
