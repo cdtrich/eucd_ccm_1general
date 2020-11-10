@@ -4,7 +4,20 @@
 
 // import * as d3 from "d3";
 // import { csv } from "d3-fetch";
+
 // import _ from "lodash";
+
+///////////////////////////////////////////////////////////////////////////
+//////////////////////////// to do ////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////
+
+// opacity on hover
+// dynamic dropdown selection
+// load data at end as global var after plot function
+
+///////////////////////////////////////////////////////////////////////////
+//////////////////////////// dependencies /////////////////////////////////
+///////////////////////////////////////////////////////////////////////////
 
 console.clear();
 
@@ -13,44 +26,61 @@ console.clear();
 ///////////////////////////////////////////////////////////////////////////
 
 const createChart = async () => {
+	///////////////////////////////////////////////////////////////////////////
 	//////////////////////////// data /////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////
 
-	let data = [
-		{ title: "Cyber espionage", val: 1000, valLab: ">1,000", desc: "" },
-		{ title: "Military cyber operations", val: 100, valLab: "<100", desc: "" },
-		{
-			title: "Cyber operations against public trust",
-			val: 5,
-			valLab: "5",
-			desc:
-				"targeting of international organizations, Internet infrastructure and trust(ed) services"
-		},
-		{
-			title: "Effect-creating cyber operations",
-			val: 23,
-			valLab: "23",
-			desc:
-				"State-authorized defacements, DDoS, doxing, data destruction and sabotage"
-		},
-		{
-			title: "Domestic cyber conflict",
-			val: 300,
-			valLab: ">300",
-			desc:
-				"internet shutdowns, opposition targeting, systemic violations of human rights"
-		}
-	];
+	let data = {
+		children: [
+			{ children: [{ title: "Cyber espionage", val: 1000, desc: "" }] },
+			{
+				children: [{ title: "Military cyber operations", val: 100, desc: "" }]
+			},
+			{
+				children: [
+					{
+						title: "Cyber operations against public trust",
+						val: 5,
+						desc:
+							"targeting of international organizations, Internet infrastructure and trust(ed) services"
+					}
+				]
+			},
+			{
+				children: [
+					{
+						title: "Effect-creating cyber operations",
+						val: 23,
+						desc:
+							"State-authorized defacements, DDoS, doxing, data destruction and sabotage"
+					}
+				]
+			},
+			{
+				children: [
+					{
+						title: "Domestic cyber conflict",
+						val: 300,
+						desc:
+							"internet shutdowns, opposition targeting, systemic violations of human rights"
+					}
+				]
+			}
+		]
+	};
 
 	//////////////////////////// accessors ////////////////////////////////////
 
 	const col = "title";
 	// const xAccessor = (d) => d.startYear;
 	const cAccessor = (d) => d[col];
-	const xAccessor = (d) => d.val;
-	const yAccessor = (d) => d.val;
+	const xAccessor = (d) => d[col];
+	const yAccessor = (d) => d[col];
 	const rAccessor = (d) => d.val;
+	const tAccessor = (d) => d.startYear;
+	const vAccessor = (d) => d.startYear;
 
-	//////////////////////////// svg ///////////////////////////////////
+	//////////////////////////// Set up svg ///////////////////////////////////
 
 	const wrapper = d3.select("#appTypes").append("svg");
 
@@ -62,9 +92,6 @@ const createChart = async () => {
 		return parent.append(elementType).attr("class", className);
 	};
 
-	///////////////////////////////////////////////////////////////////////////
-	//////////////////////////// update function /////////////////////////////
-	///////////////////////////////////////////////////////////////////////////
 	const update = () => {
 		//////////////////////////// sizes ///////////////////////////////////
 		const size = d3.min([window.innerWidth * 0.99, window.innerHeight * 0.99]);
@@ -85,8 +112,6 @@ const createChart = async () => {
 		dimensions.boundedHeight =
 			dimensions.height - dimensions.margin.top - dimensions.margin.bottom;
 
-		var nodePadding = 5;
-
 		//////////////////////////// svg ///////////////////////////////////
 
 		// tag = name; class = .name; id = #name;
@@ -101,13 +126,21 @@ const createChart = async () => {
 		//////////////////////////// colors ///////////////////////////////////////
 
 		const colorsType = [
-			// "#113655",
-			// "#f28c00",
-			"#3f8ca5"
-			// "#fab85f",
-			// "#99d4e3",
-			// "#fed061"
+			"#113655",
+			"#f28c00",
+			"#3f8ca5",
+			"#fab85f",
+			"#99d4e3",
+			"#fed061"
 		];
+
+		//////////////////////////// col var ///////////////////////////////////////
+
+		var dataType = _.chain(data.children.title)
+			.map((d) => d[col])
+			.uniq()
+			.value();
+		// console.log(dataType);
 
 		//////////////////////////// scales ///////////////////////////////////////
 
@@ -126,7 +159,7 @@ const createChart = async () => {
 		const rScale = d3
 			.scaleSqrt()
 			.domain(d3.extent(data, rAccessor))
-			.range([10, dimensions.boundedHeight / 4]);
+			.range([10, dimensions.boundedHeight / 2]);
 
 		const cScale = d3
 			.scaleOrdinal()
@@ -139,6 +172,48 @@ const createChart = async () => {
 			])
 			.range(colorsType);
 
+		//////////////////////////// force ///////////////////////////////////////
+
+		// var root = d3
+		// 	.hierarchy(data)
+		// 	.sum((d) => (d.hasOwnProperty("val") ? d.val : 0))
+		// 	.sort((a, b) => b.value - a.value);
+
+		// var partition = d3.pack().size([500, 500]);
+
+		// partition(root);
+
+		// console.log(root);
+		// console.log(root.descendants());
+
+		var simulation = d3
+			.forceSimulation(data)
+			.force(
+				"center",
+				d3
+					.forceCenter()
+					.x(dimensions.boundedWidth / 2)
+					.y(dimensions.boundedHeight / 2)
+			)
+			.force("charge", d3.forceManyBody().strength(0.5))
+			// .force("x", d3.forceX((d) => xScale(0)).strength(0.99))
+			// .force("y", d3.forceY((d) => yScale(0)).strength(0.05))
+			.force(
+				"collide",
+				d3
+					.forceCollide()
+					.strength(0.1)
+					.radius((d) => rScale(rAccessor(data)))
+			)
+			// .iterations(1)
+			.stop();
+
+		// for (var i = 0; i < 10; ++i) simulation.tick();
+
+		simulation.nodes(data).on("tick", (d) => {
+			dots.attr("cx", (d) => d.x).attr("cy", (d) => d.y);
+		});
+
 		///////////////////////////////////////////////////////////////////////////
 		//////////////////////////// plot /////////////////////////////////////////
 		///////////////////////////////////////////////////////////////////////////
@@ -147,31 +222,26 @@ const createChart = async () => {
 			const tooltip = selectOrCreate("div", "tooltip", d3.select("#appTypes"));
 
 			const dots = bounds
-				.selectAll(".nodes")
+				.selectAll(".dots")
+				// .data(root.descendants())
 				.data(data)
 				.enter()
-				.append("g")
-				.classed("nodes", true);
-
-			dots
 				.append("circle")
+				.classed("node", true)
+				// .attr("cx", (d) => d.x)
+				// .attr("cy", (d) => d.y)
+				// .attr("r", (d) => d.r)
+				.attr("cx", dimensions.boundedWidth / 2)
+				.attr("cy", dimensions.boundedHeight / 2)
 				.attr("r", (d) => rScale(rAccessor(d)))
-				.style("opacity", 1);
-
-			dots
+				// .attr("fill", (d) => cScale(cAccessor(d)))
 				.style("fill", (d) => cScale(cAccessor(d)))
-				.style("fill-opacity", 0.1)
-				.attr("stroke", (d) => cScale(cAccessor(d)));
-
-			const label = bounds
-				.selectAll(".label")
-				.data(data)
-				.enter()
-				.append("text")
-				.classed("label", true)
-				.attr("x", (d) => d.x)
-				.attr("y", (d) => d.y)
-				.text((d) => d.title);
+				.style("fill-opacity", 0.25)
+				.attr("stroke", (d) => cScale(cAccessor(d)))
+				.attr("stroke-width", "5px");
+			// .style("opacity", 0.1);
+			// .style("fill", "rgba(0, 0, 0,0)")
+			// .style("stroke", "10px solid");
 
 			// tooltip
 			dots.on("mouseover", (event, d) => {
@@ -182,9 +252,10 @@ const createChart = async () => {
 					.style("opacity", 1)
 					.style("left", mouseX + "px")
 					.style("top", mouseY + "px")
-					.html("<u>" + d.title + "</u>" + "<br>" + d.value);
+					// .text(d.key);
+					.text(d.title);
 				// smoother change in opacity
-				dots.transition().style("opacity", 0.25);
+				dots.transition().style("opacity", 0.5);
 			});
 
 			dots.on("mousemove", (d, i) => {
@@ -193,56 +264,12 @@ const createChart = async () => {
 				d3.select(".tooltip")
 					.style("left", mouseX + "px")
 					.style("top", mouseY + "px")
-					.html(
-						"<b>" +
-							d.title +
-							"</b>" +
-							"<br>" +
-							d.valLab +
-							" cases" +
-							"<br>" +
-							"<i>" +
-							d.desc +
-							"</i>"
-					);
+					.text(d.title);
 			});
 
 			dots.on("mouseleave", function (d) {
 				d3.select(".tooltip").style("visibility", "hidden");
 				dots.transition().style("opacity", 1);
-			});
-
-			//////////////////////////// force ///////////////////////////////////////
-
-			var simulation = d3
-				.forceSimulation()
-				.force(
-					"center",
-					d3
-						.forceCenter()
-						.x(dimensions.boundedWidth / 2)
-						.y(dimensions.boundedHeight / 2)
-				)
-				.force("charge", d3.forceManyBody().strength(0.1))
-				.force(
-					"collide",
-					d3
-						.forceCollide()
-						.strength(0.05)
-						.radius((d) => rScale(rAccessor(d) + nodePadding))
-						.iterations(1)
-				);
-			// .stop();
-
-			simulation.nodes(data).on("tick", (d) => {
-				// dot x and y pos
-				dots.attr("transform", function (d) {
-					return "translate(" + d.x + ", " + d.y + ")";
-				});
-				// label x and y pos
-				label.attr("transform", function (d) {
-					return "translate(" + d.x + ", " + d.y + ")";
-				});
 			});
 		};
 		dots(data);

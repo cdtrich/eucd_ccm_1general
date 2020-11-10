@@ -34,6 +34,22 @@ h1 {
 	z-index: 1;
 }
 
+.nodes {
+	/* fill: #000; */
+	/* stroke: white; */
+	stroke-width: 2px;
+	pointer-events: all;
+	opacity: 1;
+	/* opacity: 1 !important; */
+	/* fill-opacity: 1 !important; */
+	z-index: 1;
+}
+
+.nodes:hover {
+	opacity: 1 !important;
+	fill-opacity: 0.2 !important;
+}
+
 .dots:hover {
 	/* fill: #d82739; */
 	opacity: 1 !important;
@@ -45,8 +61,20 @@ h1 {
 	margin-bottom: 2em;
 }
 
+.xlabel {
+	text-anchor: middle;
+	display: none;
+}
+
+.xlabel:hover {
+	text-anchor: middle;
+	display: inline;
+}
+
 .label {
-	font-weight: 900;
+	/* font-weight: 900; */
+	pointer-events: none;
+	text-anchor: middle;
 }
 
 /* ///////////////////////////////////////////////// */
@@ -57,6 +85,17 @@ h1 {
 	stroke: #fff;
 	stroke-width: 0.5;
 	shape-rendering: crispEdges;
+}
+
+.yAxis path {
+	stroke: #fff;
+	stroke-width: 0.5;
+	shape-rendering: crispEdges;
+}
+
+.tick line {
+	stroke: #aaa;
+	stroke-width: 1;
 }
 
 /* ///////////////////////////////////////////////// */
