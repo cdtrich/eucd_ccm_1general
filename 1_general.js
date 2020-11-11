@@ -92,7 +92,8 @@ const createChart = async () => {
 
 	const update = () => {
 		//////////////////////////// sizes ///////////////////////////////////
-		const size = d3.min([window.innerWidth * 0.99, window.innerHeight * 0.99]);
+		// const size = d3.min([window.innerWidth * 0.99, window.innerHeight * 0.99]);
+		const size = 1100;
 
 		let dimensions = {
 			width: size,

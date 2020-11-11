@@ -112,9 +112,9 @@ const createChart = async () => {
 			height: size * 0.66,
 			margin: {
 				top: 30,
-				right: 100,
+				right: 15,
 				bottom: 60,
-				left: 100
+				left: 200
 			}
 		};
 
@@ -303,6 +303,7 @@ const createChart = async () => {
 					(dimensions.boundedHeight + radius) +
 					")"
 			)
+			.transition()
 			.call(xAxisGenerator);
 		// .selectAll(".tick text");
 		// .call(wrap, xScale.domain());
@@ -315,9 +316,10 @@ const createChart = async () => {
 			.tickSize(-dimensions.boundedWidth);
 		// .tsickFormat(formatAxis)
 
-		// const yAxis = selectOrCreate("g", "yAxis", bounds)
-		// 	.attr("transform", "translate(" + -radius * 3 + "," + ",0)")
-		// 	.call(yAxisGenerator);
+		const yAxis = selectOrCreate("g", "yAxis", bounds)
+			// .attr("transform", "translate(" + -radius * 3 + "," + ",0)")
+			.transition()
+			.call(yAxisGenerator);
 
 		//////////////////////////// plot /////////////////////////////////////////
 
@@ -369,12 +371,11 @@ const createChart = async () => {
 				.attr("r", radius)
 				.attr("cx", (d) => xScale(xAccessor(d)))
 				.attr("cy", (d) => yScale(yAccessor(d)))
-				// .attr("fill", colorsType[0])
 				.attr("fill", (d) => cScale(cAccessor(d)))
 				.style("opacity", 1);
 
 			// tooltip
-			dots.on("mouseover", (event, d) => {
+			dots.on("mouseover", (d) => {
 				var mouseX = event.pageX + 5;
 				var mouseY = event.pageY + 5;
 				d3.select(".tooltip")
